@@ -1,21 +1,66 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Update site contact email address",
+  "title": "Route contact-form WhatsApp CTA to a dedicated number while keeping default site WhatsApp chat",
   "requirements": [
     {
-      "id": "REQ-5",
-      "summary": "Change the configured contact email to exactly `hello.quickbeeagency,com` so all UI that reads `siteConfig.contact.email` (including mailto links and displayed text) reflects the new value.",
+      "id": "REQ-1",
+      "summary": "Change the post-submission WhatsApp CTA to prefill the contact details and target +919181768591.",
       "acceptanceCriteria": [
-        "`frontend/src/config/site.ts` sets `siteConfig.contact.email` to exactly `hello.quickbeeagency,com`.",
-        "The mailto link in the footer uses `mailto:hello.quickbeeagency,com`.",
-        "The email shown on the Contact page uses `hello.quickbeeagency,com` and its mailto link uses `mailto:hello.quickbeeagency,com`."
+        "After a successful contact form submission, the rendered WhatsApp CTA opens a wa.me link targeting +919181768591.",
+        "The WhatsApp prefilled message includes the submitted fields (name, email, optional phone, message) as it does today."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/pages/ContactPage.tsx",
+          "operation": "modify",
+          "description": "Update the success-state WhatsApp link generation so it uses the dedicated contact-form WhatsApp number from centralized config (targeting +919181768591) while preserving the existing prefilled message format (name, email, optional phone, message)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Keep all non-form WhatsApp links/buttons targeting +919182768591 while allowing the form-success CTA to use +919181768591.",
+      "acceptanceCriteria": [
+        "The default WhatsApp button (e.g., on the Contact page “Prefer to Chat?” section and other global WhatsApp links) continues to open a WhatsApp chat to +919182768591.",
+        "The WhatsApp CTA shown after form submission (with prefilled details) targets +919181768591 (and not +919182768591).",
+        "The implementation does not break existing WhatsApp link generation (still uses the existing WhatsApp deep link format)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/marketing/WhatsappButton.tsx",
+          "operation": "modify",
+          "description": "Ensure the default WhatsApp button continues to use the site-wide (general) WhatsApp deep link from config (+919182768591), while still allowing an explicit link prop (used by the contact-form success CTA) to override it."
+        },
+        {
+          "path": "frontend/src/pages/ContactPage.tsx",
+          "operation": "modify",
+          "description": "Verify the Contact page’s non-form WhatsApp areas (e.g., “Prefer to Chat?” and contact info WhatsApp link) continue using the general WhatsApp config (+919182768591), while the post-submission CTA uses the dedicated contact-form number (+919181768591)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Centralize both WhatsApp numbers in frontend configuration and ensure WhatsApp CTA user-facing labels are English.",
+      "acceptanceCriteria": [
+        "Both +919181768591 and +919182768591 are represented in a single configuration source (e.g., frontend/src/config/site.ts) and consumed by the Contact page logic.",
+        "No new user-facing text is introduced in a non-English language."
       ],
       "file_operations": [
         {
           "path": "frontend/src/config/site.ts",
           "operation": "modify",
-          "description": "Update `siteConfig.contact.email` from its current value to exactly `hello.quickbeeagency,com` (do not auto-correct or reformat the string)."
+          "description": "Refactor WhatsApp configuration to include two distinct values in one centralized source: a general site WhatsApp chat number/link (+919182768591) and a dedicated contact-form-details WhatsApp number (+919181768591). Keep existing CTA label strings in English."
+        },
+        {
+          "path": "frontend/src/pages/ContactPage.tsx",
+          "operation": "modify",
+          "description": "Consume the refactored WhatsApp config so the contact-form success CTA uses the dedicated contact-form number and all other WhatsApp links continue using the general site WhatsApp configuration; ensure any added/changed CTA labels remain English."
+        },
+        {
+          "path": "frontend/src/components/layout/Footer.tsx",
+          "operation": "modify",
+          "description": "Update footer WhatsApp link usage to align with the refactored centralized WhatsApp config (general site WhatsApp chat stays +919182768591), avoiding hard-coded numbers in the component."
         }
       ]
     }

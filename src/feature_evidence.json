@@ -2,10 +2,10 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-site-contact-email-address-from-the-current-value-in-frontend-src-config-site-ts-siteconfig-contact-email-to-exactly-hello-quickbeeagency-com-and-ensure-all-ui-locations-that-use-siteconfig-contact-email-including-mailto-links-and-any-displayed-email-text-reflect-this-new-value",
-      "featureTitle": "Update the site contact email address from the current value in `frontend/src/config/site.ts` (`siteConfig.contact.email`) to exactly `hello.quickbeeagency,com`, and ensure all UI locations that use `siteConfig.contact.email` (including mailto links and any displayed email text) reflect this new value.",
+      "featureId": "feature-update-the-contact-form-success-flow-so-that-the-whatsapp-message-prefill-containing-the-submitted-contact-form-details-is-sent-to-whatsapp-number-919181768591-instead-of-using-the-site-s-default-whatsapp-number",
+      "featureTitle": "Update the contact form success flow so that the WhatsApp message prefill (containing the submitted contact-form details) is sent to WhatsApp number +919181768591 instead of using the site’s default WhatsApp number.",
       "files": [
-        "frontend/src/config/site.ts"
+        "frontend/src/pages/ContactPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -16,7 +16,46 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-5"
+        "REQ-1"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-keep-the-website-s-general-whatsapp-integration-pointing-to-919182768591-for-standard-chat-on-whatsapp-buttons-links-header-footer-contact-info-while-still-allowing-the-contact-form-details-whatsapp-cta-to-target-919181768591",
+      "featureTitle": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
+      "files": [
+        "frontend/src/pages/ContactPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-centralize-both-whatsapp-numbers-in-frontend-configuration-so-they-are-not-hard-coded-in-page-components-and-use-english-labels-for-any-user-facing-text-related-to-whatsapp-ctas",
+      "featureTitle": "Centralize both WhatsApp numbers in frontend configuration so they are not hard-coded in page components, and use English labels for any user-facing text related to WhatsApp CTAs.",
+      "files": [
+        "frontend/src/config/site.ts",
+        "frontend/src/pages/ContactPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
       ],
       "confidence": "high"
     }

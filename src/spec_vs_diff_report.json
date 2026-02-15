@@ -1,47 +1,40 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T18:59:30.793Z",
-  "summary": "REQ-5 is partially implemented: the contact email value in `frontend/src/config/site.ts` was updated to exactly `hello.quickbeeagency,com`. However, the diff summary does not show changes to the footer and Contact page to ensure their displayed email text and `mailto:` links reflect the updated value.",
+  "generatedAt": "2026-02-15T19:43:59.502Z",
+  "summary": "REQ-1 and REQ-3 appear implemented by introducing a dedicated contact-form WhatsApp number in centralized config and using it to generate a post-submission wa.me link with prefilled submitted fields. REQ-2 cannot be fully verified from the provided diff summary because global/header/footer WhatsApp links are not shown as updated or preserved, only described in a summaries file.",
   "missing_requirements": [
     {
-      "id": "REQ-5",
-      "requirement": "Ensure the mailto link in the footer uses `mailto:hello.quickbeeagency,com`.",
-      "reason": "The diff summary only shows a modification to `frontend/src/config/site.ts` plus metadata files; it does not show any change to the footer component where the mailto link would be implemented/verified.",
+      "id": "REQ-2",
+      "requirement": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
+      "reason": "The diff shows ContactPage using the dedicated contact-form WhatsApp number, but does not show evidence of updating/preserving the general WhatsApp links in header/footer/other components. The only mention that other links use the general number is in a modified summary document, not in the actual component code changes shown.",
       "evidence": [
-        "frontend/src/config/site.ts",
-        "frontend-file-summaries.txt"
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "requirement": "Ensure the Contact page shows `hello.quickbeeagency,com` and its mailto link uses `mailto:hello.quickbeeagency,com`.",
-      "reason": "The diff summary does not include any actual diff for the Contact page component (only a high-level description in `frontend-file-summaries.txt`), so there is no evidence that the displayed email and mailto link were updated/verified.",
-      "evidence": [
+        "frontend/src/pages/ContactPage.tsx",
         "frontend-file-summaries.txt"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "Added/updated project tracking metadata (`project_state.json`) with new_feature_requests entries unrelated to implementing the frontend email change.",
-      "reason": "Not requested in the BuildRequest; the request is limited to updating the email value and ensuring UI reflects it, with constraints to avoid unrelated changes.",
+      "description": "Changed/introduced various site configuration fields unrelated to the WhatsApp-number split (e.g., branding text, contact email formatting, contact phone display/tel fields).",
+      "reason": "BuildRequest only asks to centralize two WhatsApp numbers and adjust which number is used for the contact-form success CTA vs general chat links; it does not request changing site name/tagline/description or altering contact email/phone fields.",
       "evidence": [
-        "project_state.json"
+        "frontend/src/config/site.ts"
       ]
     },
     {
-      "description": "Updated `frontend-file-summaries.txt` content describing many site pages/components and features (e.g., router pages, pricing tiers, new services, contact form behavior).",
-      "reason": "Not requested; the BuildRequest scope is narrowly limited to updating the contact email and ensuring all UI locations reflect it, without other copy/layout/styling changes.",
+      "description": "Added/updated project tracking metadata (new_feature_requests AR-1..AR-4) in project_state.json.",
+      "reason": "No requirement asks for modifying project_state.json or adding internal tracking entries; this is outside the requested frontend behavior/config change.",
       "evidence": [
-        "frontend-file-summaries.txt"
+        "project_state.json"
       ]
     }
   ],
-  "confidence": 0.68,
+  "confidence": 0.62,
   "changed_files": [
     "frontend-file-summaries.txt",
     "frontend/src/config/site.ts",
+    "frontend/src/pages/ContactPage.tsx",
     "project_state.json"
   ]
 }

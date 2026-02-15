@@ -22,12 +22,13 @@ export default function HeaderNav() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <nav className="container mx-auto flex h-16 items-center justify-between px-4">
         {/* Logo */}
-        <Link to="/" className="flex items-center space-x-3 transition-opacity hover:opacity-80">
+        <Link to="/" className="flex flex-col items-center gap-1 transition-opacity hover:opacity-80">
           <img
-            src="/assets/generated/agency-logo-quickbee.dim_512x256.png"
+            src="/assets/generated/quick-bee-logo.dim_256x256.png"
             alt={siteConfig.name}
-            className="h-8 w-auto"
+            className="h-10 w-auto"
           />
+          <span className="text-xs font-semibold text-foreground">Quick Bee</span>
         </Link>
 
         {/* Desktop Navigation */}

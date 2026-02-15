@@ -15,9 +15,9 @@ export default function Footer() {
           {/* Brand */}
           <div className="space-y-4">
             <img
-              src="/assets/generated/agency-logo-quickbee.dim_512x256.png"
+              src="/assets/generated/quick-bee-logo.dim_256x256.png"
               alt={siteConfig.name}
-              className="h-8 w-auto"
+              className="h-12 w-auto"
             />
             <p className="text-sm text-muted-foreground">
               {siteConfig.description}

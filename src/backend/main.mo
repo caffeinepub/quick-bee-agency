@@ -46,6 +46,7 @@ actor {
   type ContactSubmission = {
     name : Text;
     email : Text;
+    phone : Text;
     message : Text;
     timestamp : Time.Time;
   };
@@ -65,12 +66,13 @@ actor {
     id;
   };
 
-  public shared ({ caller }) func submitContactForm(name : Text, email : Text, message : Text) : async () {
+  public shared ({ caller }) func submitContactForm(name : Text, email : Text, phone : Text, message : Text) : async () {
     // No authorization check - public contact form accessible to everyone including guests
     let id = generateId();
     let submission : ContactSubmission = {
       name;
       email;
+      phone;
       message;
       timestamp = Time.now();
     };

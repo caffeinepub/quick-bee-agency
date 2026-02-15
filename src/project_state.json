@@ -1,18 +1,32 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "New project",
+  "summary": "Integrate the website contact form so submitted details are sent/read via WhatsApp numbers provided by the user.",
   "architectural_notes": [],
-  "known_issues": [
-    "Requested contact email appears to be malformed (uses comma instead of dot): \"hello.quickbeeagency,com\""
-  ],
+  "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-the-site-contact-email-address-from-the-current-value-in-frontend-src-config-site-ts-siteconfig-contact-email-to-exactly-hello-quickbeeagency-com-and-ensure-all-ui-locations-that-use-siteconfig-contact-email-including-mailto-links-and-any-displayed-email-text-reflect-this-new-value",
-      "title": "Update the site contact email address from the current value in `frontend/src/config/site.ts` (`siteConfig.contact.email`) to exactly `hello.quickbeeagency,com`, and ensure all UI locations that use `siteConfig.contact.email` (including mailto links and any displayed email text) reflect this new value.",
+      "id": "feature-update-the-contact-form-success-flow-so-that-the-whatsapp-message-prefill-containing-the-submitted-contact-form-details-is-sent-to-whatsapp-number-919181768591-instead-of-using-the-site-s-default-whatsapp-number",
+      "title": "Update the contact form success flow so that the WhatsApp message prefill (containing the submitted contact-form details) is sent to WhatsApp number +919181768591 instead of using the site’s default WhatsApp number.",
       "reqIds": [
-        "REQ-5"
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-keep-the-website-s-general-whatsapp-integration-pointing-to-919182768591-for-standard-chat-on-whatsapp-buttons-links-header-footer-contact-info-while-still-allowing-the-contact-form-details-whatsapp-cta-to-target-919181768591",
+      "title": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-centralize-both-whatsapp-numbers-in-frontend-configuration-so-they-are-not-hard-coded-in-page-components-and-use-english-labels-for-any-user-facing-text-related-to-whatsapp-ctas",
+      "title": "Centralize both WhatsApp numbers in frontend configuration so they are not hard-coded in page components, and use English labels for any user-facing text related to WhatsApp CTAs.",
+      "reqIds": [
+        "REQ-3"
       ],
       "version": 1
     }
@@ -20,12 +34,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Update contact email from hello@leadflow to hello.quickbeeagency,com",
+      "summary": "Integrate contact form submissions with WhatsApp so the entered details are delivered to/accessible via WhatsApp (numbers: +919181768591 and +919182768591).",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Update site contact email address",
+  "projectName": "Send contact form details to WhatsApp (+919181768591) and keep site WhatsApp chat (+919182768591)",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

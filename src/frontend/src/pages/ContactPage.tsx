@@ -1,23 +1,53 @@
 import { useState } from 'react';
 import { MessageSquare, Mail, Phone, CheckCircle2, AlertCircle } from 'lucide-react';
 import WhatsappButton from '../components/marketing/WhatsappButton';
+import InternationalPhoneInput from '../components/forms/InternationalPhoneInput';
 import { useContactForm } from '../hooks/useContactForm';
 import { siteConfig } from '../config/site';
+import { generateWhatsAppLink } from '../utils/whatsappLink';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     message: '',
   });
+
+  const [phoneValid, setPhoneValid] = useState(true);
+  const [phoneError, setPhoneError] = useState('');
+
+  const [submittedData, setSubmittedData] = useState<{
+    name: string;
+    email: string;
+    phone: string;
+    message: string;
+  } | null>(null);
 
   const { submitForm, isLoading, isSuccess, isError, error, isActorReady } = useContactForm();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await submitForm(formData);
+
+    // Validate phone if provided
+    if (formData.phone && !phoneValid) {
+      setPhoneError('Please enter a valid phone number');
+      return;
+    }
+
+    // Clear phone error
+    setPhoneError('');
+    
+    // Capture the form data before submission
+    const dataToSubmit = { ...formData };
+    
+    await submitForm(dataToSubmit);
+    
     if (!isError) {
-      setFormData({ name: '', email: '', message: '' });
+      // Store submitted data for WhatsApp link generation
+      setSubmittedData(dataToSubmit);
+      // Clear form
+      setFormData({ name: '', email: '', phone: '', message: '' });
     }
   };
 
@@ -28,7 +58,30 @@ export default function ContactPage() {
     }));
   };
 
+  const handlePhoneChange = (e164Value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      phone: e164Value,
+    }));
+    // Clear error when user starts typing
+    if (phoneError) {
+      setPhoneError('');
+    }
+  };
+
+  const handlePhoneValidationChange = (isValid: boolean) => {
+    setPhoneValid(isValid);
+  };
+
   const canSubmit = isActorReady && !isLoading;
+
+  // Generate WhatsApp link with submitted form data - uses dedicated contact form WhatsApp number
+  const whatsappLinkWithDetails = submittedData
+    ? generateWhatsAppLink(
+        siteConfig.whatsapp.contactFormNumber,
+        `Hi, I just submitted a contact form with the following details:\n\nName: ${submittedData.name}\nEmail: ${submittedData.email}${submittedData.phone ? `\nPhone: ${submittedData.phone}` : ''}\nMessage: ${submittedData.message}\n\nI'd like to discuss this further.`
+      )
+    : null;
 
   return (
     <div className="flex flex-col">
@@ -87,6 +140,14 @@ export default function ContactPage() {
                   />
                 </div>
 
+                <InternationalPhoneInput
+                  value={formData.phone}
+                  onChange={handlePhoneChange}
+                  onValidationChange={handlePhoneValidationChange}
+                  label="Phone number (optional)"
+                  error={phoneError}
+                />
+
                 <div>
                   <label htmlFor="message" className="mb-2 block text-sm font-medium text-foreground">
                     Your Message *
@@ -111,9 +172,23 @@ export default function ContactPage() {
                 )}
 
                 {isSuccess && (
-                  <div className="flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 p-4 text-accent">
-                    <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
-                    <p className="text-sm">Thank you! We'll get back to you within 2 hours.</p>
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 p-4 text-accent">
+                      <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
+                      <p className="text-sm">Thank you! We'll get back to you within 2 hours.</p>
+                    </div>
+                    
+                    {whatsappLinkWithDetails && (
+                      <div className="rounded-lg border border-border/40 bg-card p-4">
+                        <p className="mb-3 text-sm text-muted-foreground">
+                          Want to discuss this right away? Reach us on WhatsApp with your details already filled in:
+                        </p>
+                        <WhatsappButton 
+                          link={whatsappLinkWithDetails}
+                          label="Continue on WhatsApp"
+                        />
+                      </div>
+                    )}
                   </div>
                 )}
 

@@ -15,6 +15,7 @@ export interface ContactSubmission {
   'email' : string,
   'message' : string,
   'timestamp' : Time,
+  'phone' : string,
 }
 export type Time = bigint;
 export interface UserProfile { 'name' : string }
@@ -30,7 +31,10 @@ export interface _SERVICE {
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
-  'submitContactForm' : ActorMethod<[string, string, string], undefined>,
+  'submitContactForm' : ActorMethod<
+    [string, string, string, string],
+    undefined
+  >,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

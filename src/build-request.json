@@ -1,34 +1,70 @@
 {
   "kind": "build_request",
-  "title": "Update site contact email address",
+  "title": "Send contact form details to WhatsApp (+919181768591) and keep site WhatsApp chat (+919182768591)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-5",
-      "text": "Update the site contact email address from the current value in `frontend/src/config/site.ts` (`siteConfig.contact.email`) to exactly `hello.quickbeeagency,com`, and ensure all UI locations that use `siteConfig.contact.email` (including mailto links and any displayed email text) reflect this new value.",
+      "id": "REQ-1",
+      "text": "Update the contact form success flow so that the WhatsApp message prefill (containing the submitted contact-form details) is sent to WhatsApp number +919181768591 instead of using the site’s default WhatsApp number.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-6"
         ],
         "quotes": [
-          "yes, change hello@leadflow to hello.quickbeeagency,com"
+          "make the details entered in contact form to reach the whatsapp number (+919181768591)"
         ]
       },
       "acceptanceCriteria": [
-        "`frontend/src/config/site.ts` sets `siteConfig.contact.email` to exactly `hello.quickbeeagency,com`.",
-        "The mailto link in the footer uses `mailto:hello.quickbeeagency,com`.",
-        "The email shown on the Contact page uses `hello.quickbeeagency,com` and its mailto link uses `mailto:hello.quickbeeagency,com`."
+        "After a successful contact form submission, the rendered WhatsApp CTA opens a wa.me link targeting +919181768591.",
+        "The WhatsApp prefilled message includes the submitted fields (name, email, optional phone, message) as it does today."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "integrate the whatsapp of +919182768591 to the website to read the detals entered in contact form"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The default WhatsApp button (e.g., on the Contact page “Prefer to Chat?” section and other global WhatsApp links) continues to open a WhatsApp chat to +919182768591.",
+        "The WhatsApp CTA shown after form submission (with prefilled details) targets +919181768591 (and not +919182768591).",
+        "The implementation does not break existing WhatsApp link generation (still uses the existing WhatsApp deep link format)."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Centralize both WhatsApp numbers in frontend configuration so they are not hard-coded in page components, and use English labels for any user-facing text related to WhatsApp CTAs.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-6"
+        ],
+        "quotes": [
+          "integrate the whatsapp of +919182768591 to the website to read the detals entered in contact form"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Both +919181768591 and +919182768591 are represented in a single configuration source (e.g., frontend/src/config/site.ts) and consumed by the Contact page logic.",
+        "No new user-facing text is introduced in a non-English language."
       ]
     }
   ],
   "constraints": [
-    "Do not change backend logic or persistence for this request.",
-    "Do not auto-correct or reformat the user-provided email string; use it exactly as provided (`hello.quickbeeagency,com`)."
+    "Do not edit files under frontend/src/components/ui (read-only).",
+    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
+    "Respect the existing single-actor backend architecture; no additional backend canisters/services."
   ],
   "nonGoals": [
-    "Adding new contact methods (e.g., additional phone numbers, addresses).",
-    "Changing any non-email copy, layout, or styling beyond what is necessary to reflect the updated email address."
+    "Implementing WhatsApp Business API/webhook-based delivery or automated reading of messages inside WhatsApp (not possible with wa.me links).",
+    "Adding new admin UI to view contact submissions in the website.",
+    "Changing backend persistence or schema for contact submissions."
   ],
   "imageRequirements": {
     "required": [],

@@ -1,10 +1,11 @@
 # Specification
 
 ## Summary
-**Goal:** Update the site contact email address everywhere it is sourced from `siteConfig.contact.email` to `hello.quickbeeagency,com`.
+**Goal:** Send contact-form submission details to a dedicated WhatsApp number while keeping the site’s general WhatsApp chat links unchanged.
 
 **Planned changes:**
-- Change `siteConfig.contact.email` in `frontend/src/config/site.ts` to exactly `hello.quickbeeagency,com`.
-- Verify all UI locations using `siteConfig.contact.email` (including displayed email text and `mailto:` links, such as the footer and Contact page) reflect `hello.quickbeeagency,com`.
+- Update the post-submission WhatsApp CTA (with prefilled contact-form details) to open a wa.me link targeting +919181768591.
+- Keep all existing “Chat on WhatsApp”/global WhatsApp links (header/footer/contact sections) targeting +919182768591.
+- Centralize both WhatsApp numbers in a single frontend config source and ensure WhatsApp-related user-facing labels remain in English.
 
-**User-visible outcome:** The footer and Contact page display `hello.quickbeeagency,com`, and clicking the email opens a mailto link to `hello.quickbeeagency,com`.
+**User-visible outcome:** After submitting the contact form, users can tap a WhatsApp button that opens a prefilled message to +919181768591, while all other WhatsApp chat buttons on the site continue to open chats to +919182768591.

@@ -1,24 +1,50 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T18:59:30.795Z",
+  "generatedAt": "2026-02-15T19:43:59.504Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 1,
-    "implemented": 1,
+    "total": 3,
+    "implemented": 3,
     "items": [
       {
-        "id": "REQ-5",
-        "summary": "Update the site contact email address from the current value in `frontend/src/config/site.ts` (`siteConfig.contact.email`) to exactly `hello.quickbeeagency,com`, and ensure all UI locations that use `siteConfig.contact.email` (including mailto links and any displayed email text) reflect this new value.",
+        "id": "REQ-1",
+        "summary": "Update the contact form success flow so that the WhatsApp message prefill (containing the submitted contact-form details) is sent to WhatsApp number +919181768591 instead of using the site’s default WhatsApp number.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/config/site.ts"
+          "frontend/src/pages/ContactPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/src/config/site.ts"
+          "frontend/src/pages/ContactPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-2",
+        "summary": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/components/marketing/WhatsappButton.tsx",
+          "frontend/src/pages/ContactPage.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/pages/ContactPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-3",
+        "summary": "Centralize both WhatsApp numbers in frontend configuration so they are not hard-coded in page components, and use English labels for any user-facing text related to WhatsApp CTAs.",
+        "status": "implemented",
+        "plannedFiles": [
+          "frontend/src/config/site.ts",
+          "frontend/src/pages/ContactPage.tsx",
+          "frontend/src/components/layout/Footer.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/config/site.ts",
+          "frontend/src/pages/ContactPage.tsx"
         ]
       }
     ]
@@ -29,6 +55,7 @@
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
     "frontend/src/config/site.ts",
+    "frontend/src/pages/ContactPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

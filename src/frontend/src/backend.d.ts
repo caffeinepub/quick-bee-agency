@@ -13,6 +13,7 @@ export interface ContactSubmission {
     email: string;
     message: string;
     timestamp: Time;
+    phone: string;
 }
 export interface UserProfile {
     name: string;
@@ -30,5 +31,5 @@ export interface backendInterface {
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
-    submitContactForm(name: string, email: string, message: string): Promise<void>;
+    submitContactForm(name: string, email: string, phone: string, message: string): Promise<void>;
 }
