@@ -1,0 +1,196 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Build a complete premium, multi-page digital agency website for Indian local businesses/startups, branded as “Quick bee Agency”, focused on automated WhatsApp + booking lead-generation systems with a teal-on-black visual theme and conversion-optimized copy.",
+  "architectural_notes": [
+    "Visual theme: deep black/charcoal base with teal green accent; subtle teal glow + soft teal gradients; strong contrast; light gray/white text.",
+    "UI/UX: premium minimal design, rounded buttons, smooth hover effects, large bold headlines, clean spacing; mobile-first responsive layout.",
+    "Content strategy: professional, simple, trust-building, confident, revenue-focused; avoid technical jargon; CTA placement throughout; highlight 'Most Popular' pricing tier; urgency final CTA.",
+    "Branding: Website/agency name is “Quick bee Agency”; use the user-provided logo as the primary logo (header/nav and other brand placements as needed)."
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Edit Images\n- Replace the existing generated logo with the uploaded Quick bee logo and export a wide wordmark with transparent background (agency-logo.dim_512x256.png > agency-logo-quickbee.dim_512x256.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-a-5-page-multi-page-marketing-website-with-routes-and-navigation-for-home-services-about-pricing-and-contact",
+      "title": "Implement a 5-page multi-page marketing website with routes and navigation for: Home, Services, About, Pricing, and Contact.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-consistent-premium-visual-theme-across-all-pages-using-a-deep-black-charcoal-background-teal-green-accent-color-and-light-text-including-subtle-teal-glow-accents-soft-teal-gradients-rounded-buttons-strong-contrast-smooth-hover-effects-bold-headlines-clean-spacing-and-a-mobile-first-responsive-layout",
+      "title": "Apply a consistent premium visual theme across all pages using a deep black/charcoal background, teal green accent color, and light text, including subtle teal glow accents, soft teal gradients, rounded buttons, strong contrast, smooth hover effects, bold headlines, clean spacing, and a mobile-first responsive layout.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-the-home-page-with-the-specified-section-structure-and-conversion-focused-non-technical-english-copy-hero-primary-teal-cta-secondary-free-audit-cta-problem-section-missed-leads-late-follow-ups-no-booking-automation-revenue-loss-as-bold-short-statements-solution-section-3-step-process-capture-leads-automate-follow-ups-convert-to-bookings-benefits-bullets-with-small-modern-icons-social-proof-testimonial-placeholders-case-study-placeholder-with-before-after-results-pricing-preview-3-plans-with-middle-marked-most-popular-and-cta-to-pricing-page-faq-5-7-q-as-and-a-final-urgency-cta-including-the-line-limited-onboarding-slots-available",
+      "title": "Build the Home page with the specified section structure and conversion-focused, non-technical English copy: Hero (primary teal CTA + secondary “Free Audit” CTA), Problem section (missed leads/late follow-ups/no booking automation/revenue loss as bold short statements), Solution section (3-step process: Capture Leads, Automate Follow-Ups, Convert to Bookings), Benefits (bullets with small modern icons), Social proof (testimonial placeholders + case study placeholder with before/after results), Pricing preview (3 plans with middle marked “Most Popular” and CTA to Pricing page), FAQ (5–7 Q&As), and a final urgency CTA including the line “Limited onboarding slots available”.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-services-page-with-detailed-breakdown-cards-sections-for-lead-capture-page-design-whatsapp-automation-setup-booking-system-integration-follow-up-automation-crm-setup-and-performance-optimization-each-service-must-include-what-it-is-why-it-matters-and-business-impact-revenue-lead-conversion-oriented-simple-language",
+      "title": "Create the Services page with detailed breakdown cards/sections for: Lead Capture Page Design, WhatsApp Automation Setup, Booking System Integration, Follow-Up Automation, CRM Setup, and Performance Optimization; each service must include: what it is, why it matters, and business impact (revenue/lead/conversion oriented, simple language).",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-about-page-content-covering-agency-mission-focus-on-helping-indian-small-businesses-grow-commitment-to-simplicity-and-transparency-and-emphasis-on-measurable-results-using-a-professional-but-approachable-tone",
+      "title": "Create the About page content covering: agency mission, focus on helping Indian small businesses grow, commitment to simplicity and transparency, and emphasis on measurable results, using a professional but approachable tone.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-pricing-page-with-3-tiers-starter-plan-basic-lead-capture-whatsapp-auto-response-growth-plan-most-popular-full-automation-booking-integration-follow-up-system-scale-plan-advanced-automation-crm-tracking-optimization-support-include-clear-pricing-layout-roi-focused-explanations-simple-language-and-cta-buttons-under-each-plan-the-growth-plan-must-be-visually-most-prominent-and-labeled-most-popular",
+      "title": "Create the Pricing page with 3 tiers: Starter Plan (basic lead capture, WhatsApp auto response), Growth Plan (Most Popular: full automation, booking integration, follow-up system), Scale Plan (advanced automation, CRM tracking, optimization support). Include clear pricing layout, ROI-focused explanations, simple language, and CTA buttons under each plan; the Growth plan must be visually most prominent and labeled “Most Popular”.",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-contact-page-with-a-clean-minimal-layout-including-a-short-encouraging-headline-assurance-of-quick-response-a-simple-contact-form-and-a-whatsapp-contact-button",
+      "title": "Create the Contact page with a clean minimal layout including: a short encouraging headline, assurance of quick response, a simple contact form, and a WhatsApp contact button.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-enforce-the-conversion-optimization-rules-across-all-pages-bold-strong-headlines-short-paragraphs-revenue-focused-messaging-avoid-technical-jargon-ctas-placed-throughout-pages-teal-green-used-for-all-primary-actions-and-the-middle-pricing-plan-made-visually-prominent-wherever-it-appears",
+      "title": "Enforce the conversion optimization rules across all pages: bold strong headlines, short paragraphs, revenue-focused messaging, avoid technical jargon, CTAs placed throughout pages, teal green used for all primary actions, and the middle pricing plan made visually prominent wherever it appears.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-shared-layout-components-header-nav-footer-and-reusable-ui-sections-cta-blocks-plan-cards-faq-accordion-testimonial-placeholder-to-keep-styling-and-spacing-consistent-across-pages",
+      "title": "Add shared layout components (header/nav + footer) and reusable UI sections (CTA blocks, plan cards, FAQ accordion, testimonial placeholder) to keep styling and spacing consistent across pages.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-basic-site-configuration-constants-in-the-frontend-e-g-agency-name-whatsapp-phone-link-placeholder-primary-cta-label-contact-email-placeholder-so-they-can-be-updated-in-one-place-without-editing-multiple-pages",
+      "title": "Add basic site configuration constants in the frontend (e.g., agency name, WhatsApp phone/link placeholder, primary CTA label, contact email placeholder) so they can be updated in one place without editing multiple pages.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-render-any-generated-static-images-from-frontend-public-assets-generated-and-incorporate-them-into-the-layout-in-a-way-consistent-with-the-premium-teal-on-black-theme-e-g-logo-in-header-and-subtle-abstract-hero-background",
+      "title": "Render any generated static images from frontend/public/assets/generated and incorporate them into the layout in a way consistent with the premium teal-on-black theme (e.g., logo in header and subtle abstract hero background).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-site-s-brand-name-to-quick-bee-agency-in-the-centralized-frontend-site-configuration-so-that-all-components-that-read-from-siteconfig-display-the-new-name",
+      "title": "Update the site’s brand name to “Quick bee Agency” in the centralized frontend site configuration so that all components that read from siteConfig display the new name.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-html-document-title-to-use-the-new-brand-name-quick-bee-agency",
+      "title": "Update the HTML document title to use the new brand name “Quick bee Agency”.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-replace-the-current-generated-logo-asset-used-in-the-header-and-footer-with-the-user-uploaded-quick-bee-logo-ensuring-it-renders-crisply-on-the-dark-theme-and-works-at-the-existing-header-footer-logo-size",
+      "title": "Replace the current generated logo asset used in the header and footer with the user-uploaded Quick bee logo, ensuring it renders crisply on the dark theme and works at the existing header/footer logo size.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Create multi-page website with 5 pages: Home, Services, About, Pricing, Contact",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Implement premium modern UI theme: deep black/charcoal background, teal green accents (glow/gradients), light text, rounded buttons, smooth hovers, bold headlines, clean spacing, mobile-first layout",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Home page sections: hero (primary CTA + Free Audit), problem statements, 3-step solution, benefits with icons, social proof placeholders, pricing preview (3 plans with middle highlighted), FAQ (5–7), final urgency CTA",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Services page: detailed breakdowns for lead capture page design, WhatsApp automation, booking integration, follow-up automation, CRM setup, performance optimization (what/why/impact for each)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "About page: mission + India SMB focus, simplicity/transparency, measurable results, professional approachable tone",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Pricing page: 3 tiers (Starter/Growth most popular/Scale) with ROI-focused explanations and CTAs under each",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Contact page: minimal contact form + WhatsApp button + encouraging headline and quick-response assurance",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Apply conversion-optimization rules across site: strong revenue-focused headlines, short paragraphs, avoid jargon, CTAs throughout, teal for primary actions, make middle pricing plan prominent",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-16",
+      "summary": "Implement backend support for contact form submissions: store submissions in the single Motoko actor (with timestamp and submitted fields) and expose methods to create a submission; optionally expose a method to list submissions for basic verification/testing (no admin UI required).",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-17",
+      "summary": "Update site branding to “Quick bee Agency” and replace the header/logo with the user-provided logo asset.",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Quick bee Agency",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

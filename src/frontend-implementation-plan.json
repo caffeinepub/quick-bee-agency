@@ -1,0 +1,62 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Quick bee Agency branding + logo swap",
+  "requirements": [
+    {
+      "id": "REQ-13",
+      "summary": "Update centralized site configuration brand name to “Quick bee Agency” so all UI reading siteConfig shows the new name.",
+      "acceptanceCriteria": [
+        "frontend/src/config/site.ts sets siteConfig.name to exactly \"Quick bee Agency\".",
+        "Header and footer (and any other UI that reads siteConfig.name) display “Quick bee Agency” without hardcoded old branding."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/config/site.ts",
+          "operation": "modify",
+          "description": "Update siteConfig.name to exactly \"Quick bee Agency\" so any components referencing siteConfig render the updated brand."
+        }
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "summary": "Update the HTML document title to use the new brand name “Quick bee Agency”.",
+      "acceptanceCriteria": [
+        "frontend/index.html <title> is updated to include “Quick bee Agency” (and no longer shows the old generic project title)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/index.html",
+          "operation": "modify",
+          "description": "Replace the existing <title> text so it includes “Quick bee Agency” and removes the old generic project title."
+        }
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "summary": "Replace the header/footer logo asset with the uploaded Quick bee logo and keep sizing stable on the dark theme.",
+      "acceptanceCriteria": [
+        "The header logo and footer logo visually match the user-uploaded Quick bee logo.",
+        "No layout shift occurs in the header or footer; the logo remains approximately the same rendered size as before.",
+        "Logo has a transparent background (or blends cleanly) on the site’s dark/charcoal background."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/agency-logo-quickbee.dim_512x256.png",
+          "operation": "create",
+          "description": "Add the exported wide Quick bee wordmark logo (512x256) with transparent background, based on the uploaded Quick bee logo, to replace the prior generated agency logo asset."
+        },
+        {
+          "path": "frontend/src/components/layout/HeaderNav.tsx",
+          "operation": "modify",
+          "description": "Update the header logo <img> source to use frontend/public/assets/generated/agency-logo-quickbee.dim_512x256.png while keeping the existing rendered sizing classes (e.g., h-8 w-auto) to avoid layout shift."
+        },
+        {
+          "path": "frontend/src/components/layout/Footer.tsx",
+          "operation": "modify",
+          "description": "Update the footer logo <img> source to use frontend/public/assets/generated/agency-logo-quickbee.dim_512x256.png while keeping the existing rendered sizing classes (e.g., h-8 w-auto) to avoid layout shift."
+        }
+      ]
+    }
+  ]
+}

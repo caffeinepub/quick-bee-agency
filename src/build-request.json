@@ -1,0 +1,72 @@
+{
+  "kind": "build_request",
+  "title": "Update branding to “Quick bee Agency” and replace site logo with uploaded Quick bee logo",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-13",
+      "text": "Update the site’s brand name to “Quick bee Agency” in the centralized frontend site configuration so that all components that read from siteConfig display the new name.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "use this as logo & name the website Quick bee Agency"
+        ]
+      },
+      "acceptanceCriteria": [
+        "frontend/src/config/site.ts sets siteConfig.name to exactly \"Quick bee Agency\".",
+        "Header and footer (and any other UI that reads siteConfig.name) display “Quick bee Agency” without hardcoded old branding."
+      ]
+    },
+    {
+      "id": "REQ-14",
+      "text": "Update the HTML document title to use the new brand name “Quick bee Agency”.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "name the website Quick bee Agency"
+        ]
+      },
+      "acceptanceCriteria": [
+        "frontend/index.html <title> is updated to include “Quick bee Agency” (and no longer shows the old generic project title)."
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Replace the current generated logo asset used in the header and footer with the user-uploaded Quick bee logo, ensuring it renders crisply on the dark theme and works at the existing header/footer logo size.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-4"
+        ],
+        "quotes": [
+          "use this as logo"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The header logo and footer logo visually match the user-uploaded Quick bee logo.",
+        "No layout shift occurs in the header or footer; the logo remains approximately the same rendered size as before.",
+        "Logo has a transparent background (or blends cleanly) on the site’s dark/charcoal background."
+      ]
+    }
+  ],
+  "constraints": [
+    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
+    "Keep the backend as a single Motoko actor in backend/main.mo; no new backend services."
+  ],
+  "nonGoals": [
+    "Changing site copy, pricing, services, or page structure beyond updating branding and logo.",
+    "Adding new authentication methods beyond Internet Identity."
+  ],
+  "imageRequirements": {
+    "required": [],
+    "edits": [
+      "Replace the existing generated logo with the uploaded Quick bee logo and export a wide wordmark with transparent background (agency-logo.dim_512x256.png > agency-logo-quickbee.dim_512x256.png)"
+    ]
+  }
+}

@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 0.75rem;
+        /* Deep charcoal background */
+        --background: 0.18 0 0;
+        /* Light gray text */
+        --foreground: 0.95 0 0;
+        /* Card surfaces - slightly lighter charcoal */
+        --card: 0.22 0 0;
+        --card-foreground: 0.95 0 0;
+        --popover: 0.22 0 0;
+        --popover-foreground: 0.95 0 0;
+        /* Teal primary accent */
+        --primary: 0.65 0.15 180;
+        --primary-foreground: 0.98 0 0;
+        /* Secondary - darker teal */
+        --secondary: 0.35 0.12 180;
+        --secondary-foreground: 0.98 0 0;
+        /* Muted surfaces */
+        --muted: 0.28 0 0;
+        --muted-foreground: 0.65 0 0;
+        /* Accent - bright teal */
+        --accent: 0.70 0.18 180;
+        --accent-foreground: 0.98 0 0;
+        --destructive: 0.577 0.245 27.325;
+        --destructive-foreground: 0.98 0 0;
+        /* Borders - subtle */
+        --border: 0.30 0 0;
+        --input: 0.30 0 0;
+        --ring: 0.65 0.15 180;
+        --chart-1: 0.65 0.15 180;
+        --chart-2: 0.60 0.12 200;
+        --chart-3: 0.55 0.10 160;
+        --chart-4: 0.70 0.18 190;
+        --chart-5: 0.60 0.14 170;
+    }
+
+    .dark {
+        /* Pure black background for dark mode */
+        --background: 0.12 0 0;
+        --foreground: 0.98 0 0;
+        --card: 0.18 0 0;
+        --card-foreground: 0.98 0 0;
+        --popover: 0.20 0 0;
+        --popover-foreground: 0.98 0 0;
+        /* Brighter teal for dark mode */
+        --primary: 0.70 0.18 180;
+        --primary-foreground: 0.12 0 0;
+        --secondary: 0.30 0.10 180;
+        --secondary-foreground: 0.98 0 0;
+        --muted: 0.25 0 0;
+        --muted-foreground: 0.70 0 0;
+        --accent: 0.75 0.20 180;
+        --accent-foreground: 0.12 0 0;
+        --destructive: 0.60 0.22 25;
+        --destructive-foreground: 0.98 0 0;
+        --border: 0.25 0 0;
+        --input: 0.28 0 0;
+        --ring: 0.70 0.18 180;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-feature-settings: "rlig" 1, "calt" 1;
+    }
+}
+
+@layer utilities {
+    /* Teal glow utilities */
+    .glow-teal {
+        box-shadow: 0 0 20px rgba(45, 212, 191, 0.3);
+    }
+    
+    .glow-teal-lg {
+        box-shadow: 0 0 40px rgba(45, 212, 191, 0.4), 0 0 80px rgba(45, 212, 191, 0.2);
+    }
+    
+    .glow-teal-sm {
+        box-shadow: 0 0 10px rgba(45, 212, 191, 0.25);
+    }
+    
+    /* Gradient utilities */
+    .gradient-teal {
+        background: linear-gradient(135deg, oklch(0.65 0.15 180) 0%, oklch(0.55 0.12 190) 100%);
+    }
+    
+    .gradient-teal-radial {
+        background: radial-gradient(circle at center, oklch(0.65 0.15 180 / 0.15) 0%, transparent 70%);
+    }
+    
+    /* Text gradient */
+    .text-gradient-teal {
+        background: linear-gradient(135deg, oklch(0.75 0.18 180) 0%, oklch(0.65 0.15 190) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+}
