@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { Heart } from 'lucide-react';
+import { Heart, Phone } from 'lucide-react';
 import { siteConfig } from '../../config/site';
 
 export default function Footer() {
@@ -97,6 +97,15 @@ export default function Footer() {
                 >
                   Contact Us
                 </Link>
+              </li>
+              <li>
+                <a
+                  href={siteConfig.contact.phoneTel}
+                  className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                >
+                  <Phone className="h-4 w-4" />
+                  {siteConfig.contact.phoneDisplay}
+                </a>
               </li>
               <li>
                 <a

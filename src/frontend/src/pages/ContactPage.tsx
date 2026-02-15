@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageSquare, Mail, CheckCircle2, AlertCircle } from 'lucide-react';
+import { MessageSquare, Mail, Phone, CheckCircle2, AlertCircle } from 'lucide-react';
 import WhatsappButton from '../components/marketing/WhatsappButton';
 import { useContactForm } from '../hooks/useContactForm';
 import { siteConfig } from '../config/site';
@@ -11,7 +11,7 @@ export default function ContactPage() {
     message: '',
   });
 
-  const { submitForm, isLoading, isSuccess, isError, error } = useContactForm();
+  const { submitForm, isLoading, isSuccess, isError, error, isActorReady } = useContactForm();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,6 +27,8 @@ export default function ContactPage() {
       [e.target.name]: e.target.value,
     }));
   };
+
+  const canSubmit = isActorReady && !isLoading;
 
   return (
     <div className="flex flex-col">
@@ -101,6 +103,13 @@ export default function ContactPage() {
                   />
                 </div>
 
+                {!isActorReady && (
+                  <div className="flex items-center gap-2 rounded-lg border border-muted bg-muted/10 p-4 text-muted-foreground">
+                    <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                    <p className="text-sm">Initializing connection... Please wait a moment.</p>
+                  </div>
+                )}
+
                 {isSuccess && (
                   <div className="flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 p-4 text-accent">
                     <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
@@ -117,10 +126,10 @@ export default function ContactPage() {
 
                 <button
                   type="submit"
-                  disabled={isLoading}
+                  disabled={!canSubmit}
                   className="w-full rounded-full bg-accent px-8 py-4 text-base font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:glow-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoading ? 'Sending...' : 'Send Message'}
+                  {isLoading ? 'Sending...' : !isActorReady ? 'Connecting...' : 'Send Message'}
                 </button>
               </form>
             </div>
@@ -156,6 +165,13 @@ export default function ContactPage() {
               <div className="rounded-lg border border-border/40 bg-card p-6">
                 <h3 className="mb-4 text-lg font-semibold">Other Ways to Reach Us</h3>
                 <div className="space-y-3">
+                  <a
+                    href={siteConfig.contact.phoneTel}
+                    className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
+                  >
+                    <Phone className="h-5 w-5" />
+                    <span>{siteConfig.contact.phoneDisplay}</span>
+                  </a>
                   <a
                     href={`mailto:${siteConfig.contact.email}`}
                     className="flex items-center gap-3 text-muted-foreground transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"

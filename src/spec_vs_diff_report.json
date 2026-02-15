@@ -1,43 +1,36 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T17:03:13.681Z",
-  "summary": "REQ-13 and REQ-14 appear implemented (siteConfig.name updated and HTML <title> updated). Header and footer now reference a new logo path, but the diff summary does not show the actual Quick bee logo asset being added/replaced, so REQ-15 cannot be fully verified from the provided changes. Some additional footer logic/attribution appears added that was not requested in the BuildRequest.",
-  "missing_requirements": [
-    {
-      "id": "REQ-15",
-      "requirement": "Replace the current generated logo asset used in the header and footer with the user-uploaded Quick bee logo (including exporting the wide wordmark agency-logo-quickbee.dim_512x256.png with transparent background).",
-      "reason": "Header/Footer were updated to reference /assets/generated/agency-logo-quickbee.dim_512x256.png, but the diff shows no added or modified image/logo asset files, so the actual replacement/export of the uploaded logo cannot be confirmed from this diff summary.",
-      "evidence": [
-        "frontend/src/components/layout/HeaderNav.tsx",
-        "frontend/src/components/layout/Footer.tsx",
-        "<file-diff>: Added: 0 (no new assets shown)"
-      ]
-    }
-  ],
+  "generatedAt": "2026-02-15T18:53:56.697Z",
+  "summary": "Most requested frontend updates (centralized WhatsApp/phone config, new service on Services page) appear implemented. Backend contact-form endpoint remains publicly accessible. However, the diff also introduces a new authorization/user-profile subsystem and a migration module that were not requested and may be unnecessary per constraints.",
+  "missing_requirements": [],
   "hallucinated_features": [
     {
-      "description": "Footer-specific appIdentifier logic based on window.location.hostname (fallback 'quickbee-agency').",
-      "reason": "Not requested by any requirement; BuildRequest only asks for branding name/title/logo updates.",
+      "description": "Added backend state migration module and enabled migration plumbing in the main actor, despite no explicit upgrade/migration requirement in the BuildRequest.",
+      "reason": "BuildRequest allows adding backend/migration.mo only if an upgrade requires state migration; the diff adds backend/migration.mo with a no-op run function and wires it into backend/main.mo without any stated need tied to the requested changes.",
       "evidence": [
-        "frontend/src/components/layout/Footer.tsx"
+        "backend/migration.mo",
+        "backend/main.mo"
       ]
     },
     {
-      "description": "Caffeine.ai attribution with UTM tracking mentioned in footer implementation summary.",
-      "reason": "Not requested; BuildRequest non-goals include avoiding changes beyond branding/logo, and this attribution/tracking is unrelated to REQ-13/14/15.",
+      "description": "Introduced an authorization/access-control system and user profile APIs (get/save profile, admin-only contact submissions retrieval) that are outside the requested scope.",
+      "reason": "BuildRequest focuses on contact/WhatsApp info updates, adding a service card, and ensuring contact form works for unauthenticated users; it does not request adding user profile features or role/permission enforcement beyond ensuring submitContactForm remains public.",
       "evidence": [
-        "frontend-file-summaries.txt (Footer.tsx description)"
+        "backend/main.mo"
       ]
     }
   ],
-  "confidence": 0.72,
+  "confidence": 0.67,
   "changed_files": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/index.html",
     "frontend/src/components/layout/Footer.tsx",
-    "frontend/src/components/layout/HeaderNav.tsx",
     "frontend/src/config/site.ts",
+    "frontend/src/hooks/useContactForm.ts",
+    "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/pages/ServicesPage.tsx",
     "project_state.json"
   ]
 }

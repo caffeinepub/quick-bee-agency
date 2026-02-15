@@ -1,17 +1,17 @@
 import Time "mo:core/Time";
 import Map "mo:core/Map";
-import Text "mo:core/Text";
 import Array "mo:core/Array";
-import Iter "mo:core/Iter";
 import Order "mo:core/Order";
 import Runtime "mo:core/Runtime";
 import Principal "mo:core/Principal";
 import Int "mo:core/Int";
 import Nat "mo:core/Nat";
+import Migration "migration";
 
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 
+(with migration = Migration.run)
 actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);

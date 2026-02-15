@@ -2,8 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-update-the-site-s-brand-name-to-quick-bee-agency-in-the-centralized-frontend-site-configuration-so-that-all-components-that-read-from-siteconfig-display-the-new-name",
-      "featureTitle": "Update the site’s brand name to “Quick bee Agency” in the centralized frontend site configuration so that all components that read from siteConfig display the new name.",
+      "featureId": "feature-update-the-centralized-site-configuration-to-use-the-provided-contact-whatsapp-number-91-9182768591-including-1-whatsapp-display-number-2-whatsapp-wa-me-link-using-919182768591-and-3-a-click-to-call-tel-link-targetable-by-ui-components",
+      "featureTitle": "Update the centralized site configuration to use the provided contact/WhatsApp number (+91 9182768591), including: (1) WhatsApp display number, (2) WhatsApp wa.me link using 919182768591, and (3) a click-to-call tel: link targetable by UI components.",
       "files": [
         "frontend/src/config/site.ts"
       ],
@@ -16,35 +16,16 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-13"
+        "REQ-1"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-html-document-title-to-use-the-new-brand-name-quick-bee-agency",
-      "featureTitle": "Update the HTML document title to use the new brand name “Quick bee Agency”.",
-      "files": [
-        "frontend/index.html"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-14"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-replace-the-current-generated-logo-asset-used-in-the-header-and-footer-with-the-user-uploaded-quick-bee-logo-ensuring-it-renders-crisply-on-the-dark-theme-and-works-at-the-existing-header-footer-logo-size",
-      "featureTitle": "Replace the current generated logo asset used in the header and footer with the user-uploaded Quick bee logo, ensuring it renders crisply on the dark theme and works at the existing header/footer logo size.",
+      "featureId": "feature-add-the-provided-phone-number-91-9182768591-as-a-visible-click-to-call-contact-option-across-the-site-where-contact-methods-are-listed-at-minimum-footer-and-contact-page-and-ensure-whatsapp-ctas-use-the-updated-whatsapp-link-from-site-configuration",
+      "featureTitle": "Add the provided phone number (+91 9182768591) as a visible click-to-call contact option across the site where contact methods are listed (at minimum: Footer and Contact page), and ensure WhatsApp CTAs use the updated WhatsApp link from site configuration.",
       "files": [
         "frontend/src/components/layout/Footer.tsx",
-        "frontend/src/components/layout/HeaderNav.tsx"
+        "frontend/src/pages/ContactPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -55,7 +36,46 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-15"
+        "REQ-2"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-include-the-service-named-complete-business-automation-system-in-the-services-page-services-list-with-the-same-structure-as-other-services-title-whatitis-whyitmatters-businessimpact-and-conversion-focused-english-copy",
+      "featureTitle": "Include the service named \"Complete Business Automation System\" in the Services page services list with the same structure as other services (title, whatItIs, whyItMatters, businessImpact) and conversion-focused English copy.",
+      "files": [
+        "frontend/src/pages/ServicesPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-3"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-ensure-the-website-is-fully-functional-end-to-end-all-navigation-links-and-primary-ctas-route-correctly-the-contact-form-submits-successfully-to-the-backend-for-unauthenticated-visitors-and-the-ui-provides-clear-success-error-feedback-without-requiring-internet-identity-login",
+      "featureTitle": "Ensure the website is fully functional end-to-end: all navigation links and primary CTAs route correctly, the contact form submits successfully to the backend for unauthenticated visitors, and the UI provides clear success/error feedback without requiring Internet Identity login.",
+      "files": [
+        "frontend/src/hooks/useContactForm.ts",
+        "frontend/src/pages/ContactPage.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-4"
       ],
       "confidence": "high"
     }

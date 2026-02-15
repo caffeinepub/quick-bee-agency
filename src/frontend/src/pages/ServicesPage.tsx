@@ -42,6 +42,12 @@ export default function ServicesPage() {
       whyItMatters: 'Set-it-and-forget-it doesn\'t work. Markets change, and your systems need continuous improvement.',
       businessImpact: 'Increase conversion rates by 20-30% through testing and optimization, ensuring maximum return on your investment.',
     },
+    {
+      title: 'Complete Business Automation System',
+      whatItIs: 'End-to-end automation solution that integrates lead capture, WhatsApp automation, CRM, booking systems, and follow-up sequences into one seamless workflow.',
+      whyItMatters: 'Disconnected tools create gaps where leads are lost. A unified system ensures every prospect is tracked, nurtured, and converted efficiently.',
+      businessImpact: 'Transform your entire sales process, reduce manual work by 80%, and scale your business without hiring more staff. Get a complete system that works 24/7 to grow your revenue.',
+    },
   ];
 
   return (
@@ -52,18 +58,11 @@ export default function ServicesPage() {
           <div className="mx-auto max-w-3xl text-center">
             <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight md:text-5xl lg:text-6xl">
               Services That Drive{' '}
-              <span className="text-gradient-teal">Real Revenue Growth</span>
+              <span className="text-gradient-teal">Real Results</span>
             </h1>
-            <p className="mb-8 text-lg text-muted-foreground md:text-xl">
-              We build automated systems that capture leads, nurture relationships, and convert prospects into paying customers
+            <p className="text-lg text-muted-foreground md:text-xl">
+              We don't just build systems—we build revenue-generating machines. Every service is designed to capture more leads, convert them faster, and grow your business.
             </p>
-            <Link
-              to="/contact"
-              className="group inline-flex items-center gap-2 rounded-full bg-accent px-8 py-4 text-base font-semibold text-accent-foreground transition-all hover:bg-accent/90 hover:glow-teal focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
-            >
-              {siteConfig.cta.secondary}
-              <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-            </Link>
           </div>
         </div>
       </section>
@@ -71,7 +70,7 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="py-20">
         <div className="container mx-auto px-4">
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="mx-auto max-w-6xl space-y-8">
             {services.map((service, index) => (
               <ServiceCard key={index} {...service} />
             ))}
@@ -81,11 +80,15 @@ export default function ServicesPage() {
 
       {/* CTA Section */}
       <CtaBlock
-        title="Ready to Automate Your Lead Generation?"
-        description="Let's discuss which services will have the biggest impact on your business growth."
+        title="Ready to Transform Your Business?"
+        description="Let's discuss which services will have the biggest impact on your revenue. Book a free consultation today."
         primaryCta={{
-          text: 'Schedule a Free Consultation',
+          text: siteConfig.cta.primary,
           href: '/contact',
+        }}
+        secondaryCta={{
+          text: 'View Pricing',
+          href: '/pricing',
         }}
       />
     </div>

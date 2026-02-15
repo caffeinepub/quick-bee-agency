@@ -8,13 +8,13 @@ interface ContactFormData {
 }
 
 export function useContactForm() {
-  const { actor } = useActor();
+  const { actor, isFetching } = useActor();
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
       if (!actor) {
-        throw new Error('Actor not initialized');
+        throw new Error('Connection not ready. Please wait a moment and try again.');
       }
       await actor.submitContactForm(data.name, data.email, data.message);
     },
@@ -24,11 +24,14 @@ export function useContactForm() {
     },
   });
 
+  const isActorReady = !!actor && !isFetching;
+
   return {
     submitForm: mutation.mutateAsync,
     isLoading: mutation.isPending,
     isSuccess: mutation.isSuccess,
     isError: mutation.isError,
     error: mutation.error,
+    isActorReady,
   };
 }

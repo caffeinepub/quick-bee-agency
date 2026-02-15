@@ -1,72 +1,102 @@
 {
   "kind": "build_request",
-  "title": "Update branding to “Quick bee Agency” and replace site logo with uploaded Quick bee logo",
+  "title": "Make site fully functional, add contact/WhatsApp number, and include new service",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-13",
-      "text": "Update the site’s brand name to “Quick bee Agency” in the centralized frontend site configuration so that all components that read from siteConfig display the new name.",
+      "id": "REQ-1",
+      "text": "Update the centralized site configuration to use the provided contact/WhatsApp number (+91 9182768591), including: (1) WhatsApp display number, (2) WhatsApp wa.me link using 919182768591, and (3) a click-to-call tel: link targetable by UI components.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-9"
         ],
         "quotes": [
-          "use this as logo & name the website Quick bee Agency"
+          "make it completely functional & add this number for contact & whatsapp number(+91 9182768591)"
         ]
       },
       "acceptanceCriteria": [
-        "frontend/src/config/site.ts sets siteConfig.name to exactly \"Quick bee Agency\".",
-        "Header and footer (and any other UI that reads siteConfig.name) display “Quick bee Agency” without hardcoded old branding."
+        "frontend/src/config/site.ts contains the WhatsApp number as \"+91 9182768591\" (or equivalent formatting) and the WhatsApp link uses https://wa.me/919182768591 with a prefilled message query string",
+        "A phone contact value exists in site configuration that can be used to render a tel: link (e.g., tel:+919182768591)"
       ]
     },
     {
-      "id": "REQ-14",
-      "text": "Update the HTML document title to use the new brand name “Quick bee Agency”.",
+      "id": "REQ-2",
+      "text": "Add the provided phone number (+91 9182768591) as a visible click-to-call contact option across the site where contact methods are listed (at minimum: Footer and Contact page), and ensure WhatsApp CTAs use the updated WhatsApp link from site configuration.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-4"
+          "msg-9"
         ],
         "quotes": [
-          "name the website Quick bee Agency"
+          "add this number for contact & whatsapp number(+91 9182768591)"
         ]
       },
       "acceptanceCriteria": [
-        "frontend/index.html <title> is updated to include “Quick bee Agency” (and no longer shows the old generic project title)."
+        "Footer shows a phone entry that links to tel:+919182768591 and is keyboard accessible",
+        "Contact page 'Other Ways to Reach Us' includes the phone number as a tel: link in addition to email and WhatsApp",
+        "WhatsApp button and any WhatsApp links on the site open the updated wa.me link in a new tab"
       ]
     },
     {
-      "id": "REQ-15",
-      "text": "Replace the current generated logo asset used in the header and footer with the user-uploaded Quick bee logo, ensuring it renders crisply on the dark theme and works at the existing header/footer logo size.",
+      "id": "REQ-3",
+      "text": "Include the service named \"Complete Business Automation System\" in the Services page services list with the same structure as other services (title, whatItIs, whyItMatters, businessImpact) and conversion-focused English copy.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "use this as logo"
+          "Complete Business Automation System- include this service"
         ]
       },
       "acceptanceCriteria": [
-        "The header logo and footer logo visually match the user-uploaded Quick bee logo.",
-        "No layout shift occurs in the header or footer; the logo remains approximately the same rendered size as before.",
-        "Logo has a transparent background (or blends cleanly) on the site’s dark/charcoal background."
+        "Services page renders an additional ServiceCard titled \"Complete Business Automation System\"",
+        "The new service includes non-empty 'what it is', 'why it matters', and 'business impact' text consistent with the existing tone and format"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Ensure the website is fully functional end-to-end: all navigation links and primary CTAs route correctly, the contact form submits successfully to the backend for unauthenticated visitors, and the UI provides clear success/error feedback without requiring Internet Identity login.",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-9"
+        ],
+        "quotes": [
+          "make it completely functional"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Header navigation links route correctly to Home, Services, About, Pricing, and Contact on both desktop and mobile menus",
+        "All primary CTA buttons that point to internal pages (e.g., \"/contact\", \"/pricing\") navigate without errors",
+        "Contact form submission works for logged-out/guest users and displays the existing success state on success and error state on failure",
+        "Backend stores submitted contact form entries via submitContactForm without authorization requirements (no regression to backend/main.mo public contact form behavior)"
       ]
     }
   ],
   "constraints": [
-    "Frontend immutable paths must not be edited: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui.",
-    "Keep the backend as a single Motoko actor in backend/main.mo; no new backend services."
+    "Do not edit files under frontend/src/components/ui (read-only UI components).",
+    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
+    "Backend must remain a single Motoko actor in backend/main.mo; add backend/migration.mo only if an upgrade requires state migration."
   ],
   "nonGoals": [
-    "Changing site copy, pricing, services, or page structure beyond updating branding and logo.",
-    "Adding new authentication methods beyond Internet Identity."
+    "Do not implement actual WhatsApp Business automation, auto-reply, or smart routing features; only update contact/linking on the website.",
+    "Do not add third-party authentication providers; only Internet Identity is allowed.",
+    "Do not add external databases or external backend services."
   ],
   "imageRequirements": {
     "required": [],
-    "edits": [
-      "Replace the existing generated logo with the uploaded Quick bee logo and export a wide wordmark with transparent background (agency-logo.dim_512x256.png > agency-logo-quickbee.dim_512x256.png)"
-    ]
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
   }
 }

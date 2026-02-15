@@ -1,18 +1,18 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T17:03:13.684Z",
+  "generatedAt": "2026-02-15T18:53:56.700Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 3,
-    "implemented": 3,
+    "total": 4,
+    "implemented": 4,
     "items": [
       {
-        "id": "REQ-13",
-        "summary": "Update the site’s brand name to “Quick bee Agency” in the centralized frontend site configuration so that all components that read from siteConfig display the new name.",
+        "id": "REQ-1",
+        "summary": "Update the centralized site configuration to use the provided contact/WhatsApp number (+91 9182768591), including: (1) WhatsApp display number, (2) WhatsApp wa.me link using 919182768591, and (3) a click-to-call tel: link targetable by UI components.",
         "status": "implemented",
         "plannedFiles": [
           "frontend/src/config/site.ts"
@@ -22,44 +22,61 @@
         ]
       },
       {
-        "id": "REQ-14",
-        "summary": "Update the HTML document title to use the new brand name “Quick bee Agency”.",
+        "id": "REQ-2",
+        "summary": "Add the provided phone number (+91 9182768591) as a visible click-to-call contact option across the site where contact methods are listed (at minimum: Footer and Contact page), and ensure WhatsApp CTAs use the updated WhatsApp link from site configuration.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/layout/Footer.tsx",
+          "frontend/src/pages/ContactPage.tsx",
+          "frontend/src/components/marketing/WhatsappButton.tsx"
         ],
         "matchedFiles": [
-          "frontend/index.html"
+          "frontend/src/components/layout/Footer.tsx",
+          "frontend/src/pages/ContactPage.tsx"
         ]
       },
       {
-        "id": "REQ-15",
-        "summary": "Replace the current generated logo asset used in the header and footer with the user-uploaded Quick bee logo, ensuring it renders crisply on the dark theme and works at the existing header/footer logo size.",
+        "id": "REQ-3",
+        "summary": "Include the service named \"Complete Business Automation System\" in the Services page services list with the same structure as other services (title, whatItIs, whyItMatters, businessImpact) and conversion-focused English copy.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/assets/generated/agency-logo-quickbee.dim_512x256.png",
-          "frontend/src/components/layout/HeaderNav.tsx",
-          "frontend/src/components/layout/Footer.tsx"
+          "frontend/src/pages/ServicesPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/assets/generated/agency-logo-quickbee.dim_512x256.png",
+          "frontend/src/pages/ServicesPage.tsx"
+        ]
+      },
+      {
+        "id": "REQ-4",
+        "summary": "Ensure the website is fully functional end-to-end: all navigation links and primary CTAs route correctly, the contact form submits successfully to the backend for unauthenticated visitors, and the UI provides clear success/error feedback without requiring Internet Identity login.",
+        "status": "implemented",
+        "plannedFiles": [
           "frontend/src/components/layout/HeaderNav.tsx",
-          "frontend/src/components/layout/Footer.tsx"
+          "frontend/src/components/marketing/CtaBlock.tsx",
+          "frontend/src/components/marketing/PlanCard.tsx",
+          "frontend/src/hooks/useContactForm.ts",
+          "frontend/src/pages/ContactPage.tsx",
+          "frontend/src/App.tsx"
+        ],
+        "matchedFiles": [
+          "frontend/src/hooks/useContactForm.ts",
+          "frontend/src/pages/ContactPage.tsx"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
-    "build-template/README.md",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/public/assets/generated/agency-logo-quickbee.dim_512x256.png",
     "frontend/src/components/layout/Footer.tsx",
-    "frontend/src/components/layout/HeaderNav.tsx",
     "frontend/src/config/site.ts",
+    "frontend/src/hooks/useContactForm.ts",
+    "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/pages/ServicesPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",
