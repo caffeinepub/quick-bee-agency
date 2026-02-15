@@ -1,32 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Integrate the website contact form so submitted details are sent/read via WhatsApp numbers provided by the user.",
+  "summary": "New project",
   "architectural_notes": [],
   "known_issues": [],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-the-contact-form-success-flow-so-that-the-whatsapp-message-prefill-containing-the-submitted-contact-form-details-is-sent-to-whatsapp-number-919181768591-instead-of-using-the-site-s-default-whatsapp-number",
-      "title": "Update the contact form success flow so that the WhatsApp message prefill (containing the submitted contact-form details) is sent to WhatsApp number +919181768591 instead of using the site’s default WhatsApp number.",
+      "id": "feature-update-the-whatsapp-deep-link-prefilled-text-generated-after-a-successful-contact-form-submission-so-it-includes-every-contact-form-field-name-email-phone-message-in-a-clear-copy-paste-friendly-format-for-fast-replies-and-always-targets-the-dedicated-contact-form-whatsapp-number-from-configuration-siteconfig-whatsapp-contactformnumber",
+      "title": "Update the WhatsApp deep-link prefilled text generated after a successful contact form submission so it includes every contact form field (name, email, phone, message) in a clear, copy/paste-friendly format for fast replies, and always targets the dedicated contact-form WhatsApp number from configuration (siteConfig.whatsapp.contactFormNumber).",
       "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-keep-the-website-s-general-whatsapp-integration-pointing-to-919182768591-for-standard-chat-on-whatsapp-buttons-links-header-footer-contact-info-while-still-allowing-the-contact-form-details-whatsapp-cta-to-target-919181768591",
-      "title": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-centralize-both-whatsapp-numbers-in-frontend-configuration-so-they-are-not-hard-coded-in-page-components-and-use-english-labels-for-any-user-facing-text-related-to-whatsapp-ctas",
-      "title": "Centralize both WhatsApp numbers in frontend configuration so they are not hard-coded in page components, and use English labels for any user-facing text related to WhatsApp CTAs.",
-      "reqIds": [
-        "REQ-3"
+        "REQ-4"
       ],
       "version": 1
     }
@@ -34,12 +18,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Integrate contact form submissions with WhatsApp so the entered details are delivered to/accessible via WhatsApp (numbers: +919181768591 and +919182768591).",
+      "summary": "Update contact form submission so it sends a WhatsApp message to the provided number including all contact form details (client data) in the message text for quick replies",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "projectName": "Send contact form details to WhatsApp (+919181768591) and keep site WhatsApp chat (+919182768591)",
+  "projectName": "Improve WhatsApp prefilled message text from Contact form (include all client details)",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

@@ -1,40 +1,30 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T19:43:59.502Z",
-  "summary": "REQ-1 and REQ-3 appear implemented by introducing a dedicated contact-form WhatsApp number in centralized config and using it to generate a post-submission wa.me link with prefilled submitted fields. REQ-2 cannot be fully verified from the provided diff summary because global/header/footer WhatsApp links are not shown as updated or preserved, only described in a summaries file.",
-  "missing_requirements": [
+  "generatedAt": "2026-02-15T19:52:37.033Z",
+  "summary": "REQ-4 appears implemented: ContactPage now generates a wa.me deep link targeting siteConfig.whatsapp.contactFormNumber and formats a prefilled message containing labeled, line-broken Name/Email/Phone/Message fields with a 'Not provided' placeholder when phone is empty.",
+  "missing_requirements": [],
+  "hallucinated_features": [
     {
-      "id": "REQ-2",
-      "requirement": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
-      "reason": "The diff shows ContactPage using the dedicated contact-form WhatsApp number, but does not show evidence of updating/preserving the general WhatsApp links in header/footer/other components. The only mention that other links use the general number is in a modified summary document, not in the actual component code changes shown.",
+      "description": "Project metadata/tracking files updated (project_state.json) even though the BuildRequest only asked for frontend WhatsApp deep-link/message behavior changes.",
+      "reason": "No requirement mentions updating project tracking/state files; this is outside REQ-4 scope.",
       "evidence": [
-        "frontend/src/pages/ContactPage.tsx",
+        "project_state.json"
+      ]
+    },
+    {
+      "description": "Generated/summary documentation file updated (frontend-file-summaries.txt) beyond the requested WhatsApp link/message behavior change.",
+      "reason": "BuildRequest does not request updating summary documentation artifacts.",
+      "evidence": [
         "frontend-file-summaries.txt"
       ]
     }
   ],
-  "hallucinated_features": [
-    {
-      "description": "Changed/introduced various site configuration fields unrelated to the WhatsApp-number split (e.g., branding text, contact email formatting, contact phone display/tel fields).",
-      "reason": "BuildRequest only asks to centralize two WhatsApp numbers and adjust which number is used for the contact-form success CTA vs general chat links; it does not request changing site name/tagline/description or altering contact email/phone fields.",
-      "evidence": [
-        "frontend/src/config/site.ts"
-      ]
-    },
-    {
-      "description": "Added/updated project tracking metadata (new_feature_requests AR-1..AR-4) in project_state.json.",
-      "reason": "No requirement asks for modifying project_state.json or adding internal tracking entries; this is outside the requested frontend behavior/config change.",
-      "evidence": [
-        "project_state.json"
-      ]
-    }
-  ],
-  "confidence": 0.62,
+  "confidence": 0.74,
   "changed_files": [
     "frontend-file-summaries.txt",
-    "frontend/src/config/site.ts",
     "frontend/src/pages/ContactPage.tsx",
+    "frontend/src/utils/whatsappLink.ts",
     "project_state.json"
   ]
 }

@@ -1,70 +1,34 @@
 {
   "kind": "build_request",
-  "title": "Send contact form details to WhatsApp (+919181768591) and keep site WhatsApp chat (+919182768591)",
+  "title": "Improve WhatsApp prefilled message text from Contact form (include all client details)",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Update the contact form success flow so that the WhatsApp message prefill (containing the submitted contact-form details) is sent to WhatsApp number +919181768591 instead of using the site’s default WhatsApp number.",
+      "id": "REQ-4",
+      "text": "Update the WhatsApp deep-link prefilled text generated after a successful contact form submission so it includes every contact form field (name, email, phone, message) in a clear, copy/paste-friendly format for fast replies, and always targets the dedicated contact-form WhatsApp number from configuration (siteConfig.whatsapp.contactFormNumber).",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-6"
+          "msg-user-1"
         ],
         "quotes": [
-          "make the details entered in contact form to reach the whatsapp number (+919181768591)"
+          "make the text of your messege in contact form to reach the whatsapp number i provided with every details in contact form as the data of client so i can reply them fast"
         ]
       },
       "acceptanceCriteria": [
-        "After a successful contact form submission, the rendered WhatsApp CTA opens a wa.me link targeting +919181768591.",
-        "The WhatsApp prefilled message includes the submitted fields (name, email, optional phone, message) as it does today."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Keep the website’s general WhatsApp integration pointing to +919182768591 for standard “Chat on WhatsApp” buttons/links (header/footer/contact info), while still allowing the contact-form-details WhatsApp CTA to target +919181768591.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "integrate the whatsapp of +919182768591 to the website to read the detals entered in contact form"
-        ]
-      },
-      "acceptanceCriteria": [
-        "The default WhatsApp button (e.g., on the Contact page “Prefer to Chat?” section and other global WhatsApp links) continues to open a WhatsApp chat to +919182768591.",
-        "The WhatsApp CTA shown after form submission (with prefilled details) targets +919181768591 (and not +919182768591).",
-        "The implementation does not break existing WhatsApp link generation (still uses the existing WhatsApp deep link format)."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Centralize both WhatsApp numbers in frontend configuration so they are not hard-coded in page components, and use English labels for any user-facing text related to WhatsApp CTAs.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-6"
-        ],
-        "quotes": [
-          "integrate the whatsapp of +919182768591 to the website to read the detals entered in contact form"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Both +919181768591 and +919182768591 are represented in a single configuration source (e.g., frontend/src/config/site.ts) and consumed by the Contact page logic.",
-        "No new user-facing text is introduced in a non-English language."
+        "After submitting the Contact form successfully, clicking \"Continue on WhatsApp\" opens a wa.me link that uses siteConfig.whatsapp.contactFormNumber (not the general site WhatsApp number).",
+        "The prefilled WhatsApp message includes labeled lines for Name, Email, Phone, and Message.",
+        "If the user did not enter a phone number, the message still includes a Phone line with a clear placeholder (e.g., \"Phone: Not provided\").",
+        "The WhatsApp message formatting uses line breaks so each field is easy to scan in WhatsApp."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (read-only).",
-    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
-    "Respect the existing single-actor backend architecture; no additional backend canisters/services."
+    "Do not modify files under frontend/src/components/ui or any other paths listed as immutable in SYSTEM_CONTEXT."
   ],
   "nonGoals": [
-    "Implementing WhatsApp Business API/webhook-based delivery or automated reading of messages inside WhatsApp (not possible with wa.me links).",
-    "Adding new admin UI to view contact submissions in the website.",
-    "Changing backend persistence or schema for contact submissions."
+    "Do not change backend contact-form storage or admin retrieval behavior.",
+    "Do not add any new third-party WhatsApp API integration; keep using wa.me deep links only."
   ],
   "imageRequirements": {
     "required": [],

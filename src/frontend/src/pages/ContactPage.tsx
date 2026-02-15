@@ -4,7 +4,7 @@ import WhatsappButton from '../components/marketing/WhatsappButton';
 import InternationalPhoneInput from '../components/forms/InternationalPhoneInput';
 import { useContactForm } from '../hooks/useContactForm';
 import { siteConfig } from '../config/site';
-import { generateWhatsAppLink } from '../utils/whatsappLink';
+import { generateWhatsAppLink, formatContactFormMessage } from '../utils/whatsappLink';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -79,7 +79,7 @@ export default function ContactPage() {
   const whatsappLinkWithDetails = submittedData
     ? generateWhatsAppLink(
         siteConfig.whatsapp.contactFormNumber,
-        `Hi, I just submitted a contact form with the following details:\n\nName: ${submittedData.name}\nEmail: ${submittedData.email}${submittedData.phone ? `\nPhone: ${submittedData.phone}` : ''}\nMessage: ${submittedData.message}\n\nI'd like to discuss this further.`
+        formatContactFormMessage(submittedData)
       )
     : null;
 
