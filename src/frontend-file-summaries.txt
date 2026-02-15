@@ -1,7 +1,7 @@
 {
   "frontend/src/index.css": "Global styles with premium teal-on-black OKLCH color system, custom glow utilities, and gradient helpers for the agency theme.",
   "frontend/src/App.tsx": "Main app component with TanStack Router setup for 5 pages (Home, Services, About, Pricing, Contact) wrapped in shared layout.",
-  "frontend/src/config/site.ts": "Centralized site configuration with updated WhatsApp number (+91 9182768591), wa.me link with prefilled message, and new phone contact fields (phoneDisplay and phoneTel) for click-to-call functionality.",
+  "frontend/src/config/site.ts": "Centralized site configuration with updated contact email (hello.quickbeeagency,com), WhatsApp number (+91 9182768591), wa.me link with prefilled message, and phone contact fields for click-to-call functionality.",
   "frontend/src/components/layout/SiteLayout.tsx": "Shared layout wrapper that renders HeaderNav, page content via Outlet, and Footer across all routes.",
   "frontend/src/components/layout/HeaderNav.tsx": "Sticky header with Quick bee Agency logo, desktop/mobile navigation, active route highlighting, and primary CTA button.",
   "frontend/src/components/layout/Footer.tsx": "Site footer with Quick bee Agency logo, quick links, services, contact info including phone number as a tel: link, and caffeine.ai attribution with UTM tracking.",

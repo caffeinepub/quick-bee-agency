@@ -7,7 +7,7 @@ export const siteConfig = {
     link: 'https://wa.me/919182768591?text=Hi%2C%20I%27m%20interested%20in%20learning%20more%20about%20your%20lead%20generation%20services',
   },
   contact: {
-    email: 'hello@leadflow.agency',
+    email: 'hello.quickbeeagency,com',
     phoneDisplay: '+91 9182768591',
     phoneTel: 'tel:+919182768591',
   },

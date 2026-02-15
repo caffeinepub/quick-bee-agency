@@ -1,103 +1,21 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Functional site updates: contact/WhatsApp number, new service, and CTA/navigation verification",
+  "title": "Update site contact email address",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Update centralized site configuration with the provided WhatsApp number, wa.me link (with prefilled message), and a phone value usable for tel: links.",
+      "id": "REQ-5",
+      "summary": "Change the configured contact email to exactly `hello.quickbeeagency,com` so all UI that reads `siteConfig.contact.email` (including mailto links and displayed text) reflects the new value.",
       "acceptanceCriteria": [
-        "frontend/src/config/site.ts contains the WhatsApp number as \"+91 9182768591\" (or equivalent formatting) and the WhatsApp link uses https://wa.me/919182768591 with a prefilled message query string",
-        "A phone contact value exists in site configuration that can be used to render a tel: link (e.g., tel:+919182768591)"
+        "`frontend/src/config/site.ts` sets `siteConfig.contact.email` to exactly `hello.quickbeeagency,com`.",
+        "The mailto link in the footer uses `mailto:hello.quickbeeagency,com`.",
+        "The email shown on the Contact page uses `hello.quickbeeagency,com` and its mailto link uses `mailto:hello.quickbeeagency,com`."
       ],
       "file_operations": [
         {
           "path": "frontend/src/config/site.ts",
           "operation": "modify",
-          "description": "Update siteConfig.whatsapp.number to \"+91 9182768591\" and siteConfig.whatsapp.link to \"https://wa.me/919182768591\" with a prefilled message query string; add a centralized phone contact value (e.g., siteConfig.contact.phoneDisplay and siteConfig.contact.phoneTel) so UI can reliably render click-to-call tel: links."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Show the phone number as a click-to-call option in key contact areas (Footer and Contact page) and ensure WhatsApp CTAs consistently use the updated config link in a new tab.",
-      "acceptanceCriteria": [
-        "Footer shows a phone entry that links to tel:+919182768591 and is keyboard accessible",
-        "Contact page 'Other Ways to Reach Us' includes the phone number as a tel: link in addition to email and WhatsApp",
-        "WhatsApp button and any WhatsApp links on the site open the updated wa.me link in a new tab"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/layout/Footer.tsx",
-          "operation": "modify",
-          "description": "Add a visible phone entry in the Footer 'Get in Touch' list using the centralized phone tel: value from siteConfig; ensure it uses an anchor tag with appropriate focus styles (consistent with existing keyboard-accessible links) and keep WhatsApp link sourced from siteConfig.whatsapp.link with target=\"_blank\"."
-        },
-        {
-          "path": "frontend/src/pages/ContactPage.tsx",
-          "operation": "modify",
-          "description": "In 'Other Ways to Reach Us', add a phone contact row that links to the centralized tel: value from siteConfig (in addition to existing email and WhatsApp). Ensure the WhatsApp link continues to use siteConfig.whatsapp.link with target=\"_blank\" and rel=\"noopener noreferrer\"."
-        },
-        {
-          "path": "frontend/src/components/marketing/WhatsappButton.tsx",
-          "operation": "modify",
-          "description": "Confirm the WhatsApp CTA always uses siteConfig.whatsapp.link and opens in a new tab (target=\"_blank\" with rel=\"noopener noreferrer\"); keep the component as the single source for WhatsApp CTA behavior across pages."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Add a new service \"Complete Business Automation System\" to the Services page list with conversion-focused copy and the same structure as existing services.",
-      "acceptanceCriteria": [
-        "Services page renders an additional ServiceCard titled \"Complete Business Automation System\"",
-        "The new service includes non-empty 'what it is', 'why it matters', and 'business impact' text consistent with the existing tone and format"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/ServicesPage.tsx",
-          "operation": "modify",
-          "description": "Append a new services array item with title \"Complete Business Automation System\" and non-empty whatItIs/whyItMatters/businessImpact copy matching existing service tone and ServiceCard props structure."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Verify end-to-end functionality: navigation routes and primary CTAs work, and the contact form submits for guest users with clear success/error feedback (no Internet Identity login required).",
-      "acceptanceCriteria": [
-        "Header navigation links route correctly to Home, Services, About, Pricing, and Contact on both desktop and mobile menus",
-        "All primary CTA buttons that point to internal pages (e.g., \"/contact\", \"/pricing\") navigate without errors",
-        "Contact form submission works for logged-out/guest users and displays the existing success state on success and error state on failure",
-        "Backend stores submitted contact form entries via submitContactForm without authorization requirements (no regression to backend/main.mo public contact form behavior)"
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/components/layout/HeaderNav.tsx",
-          "operation": "modify",
-          "description": "Audit and adjust (if needed) desktop and mobile nav Link targets so they route correctly to Home (/), Services (/services), About (/about), Pricing (/pricing), and Contact (/contact); ensure mobile menu closes on navigation as it currently does."
-        },
-        {
-          "path": "frontend/src/components/marketing/CtaBlock.tsx",
-          "operation": "modify",
-          "description": "Audit internal CTA Link usage to ensure that provided href values (e.g., \"/contact\", \"/pricing\") are treated as internal routes and navigate without errors; keep Link-based navigation consistent across all CTA blocks."
-        },
-        {
-          "path": "frontend/src/components/marketing/PlanCard.tsx",
-          "operation": "modify",
-          "description": "Audit and fix (if needed) the plan CTA navigation behavior so primary plan actions route to the intended internal pages (e.g., contact/pricing) without errors, aligning with REQ-4 internal CTA routing expectations."
-        },
-        {
-          "path": "frontend/src/hooks/useContactForm.ts",
-          "operation": "modify",
-          "description": "Improve guest submission robustness by ensuring the contact form mutation gracefully handles actor-not-ready timing (e.g., expose an \"isActorReady\"/\"canSubmit\" state and/or provide a clearer error for initialization) while continuing to call submitContactForm and preserving success/error states."
-        },
-        {
-          "path": "frontend/src/pages/ContactPage.tsx",
-          "operation": "modify",
-          "description": "Wire in any new readiness state from useContactForm (e.g., disable submit until backend actor is ready and show a clear message if not ready) to ensure logged-out/guest users can submit successfully without requiring Internet Identity login; preserve the existing success and error feedback UI behavior."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Confirm the router includes routes for Home, Services, About, Pricing, and Contact and that paths match all navigation/CTA Link targets; adjust route definitions only if a mismatch is found."
+          "description": "Update `siteConfig.contact.email` from its current value to exactly `hello.quickbeeagency,com` (do not auto-correct or reformat the string)."
         }
       ]
     }

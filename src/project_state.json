@@ -1,40 +1,18 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "Business services website/landing page with a services list and lead/contact capture, including WhatsApp contact.",
+  "summary": "New project",
   "architectural_notes": [],
-  "known_issues": [],
+  "known_issues": [
+    "Requested contact email appears to be malformed (uses comma instead of dot): \"hello.quickbeeagency,com\""
+  ],
   "isFixRequest": false,
   "existing_features": [
     {
-      "id": "feature-update-the-centralized-site-configuration-to-use-the-provided-contact-whatsapp-number-91-9182768591-including-1-whatsapp-display-number-2-whatsapp-wa-me-link-using-919182768591-and-3-a-click-to-call-tel-link-targetable-by-ui-components",
-      "title": "Update the centralized site configuration to use the provided contact/WhatsApp number (+91 9182768591), including: (1) WhatsApp display number, (2) WhatsApp wa.me link using 919182768591, and (3) a click-to-call tel: link targetable by UI components.",
+      "id": "feature-update-the-site-contact-email-address-from-the-current-value-in-frontend-src-config-site-ts-siteconfig-contact-email-to-exactly-hello-quickbeeagency-com-and-ensure-all-ui-locations-that-use-siteconfig-contact-email-including-mailto-links-and-any-displayed-email-text-reflect-this-new-value",
+      "title": "Update the site contact email address from the current value in `frontend/src/config/site.ts` (`siteConfig.contact.email`) to exactly `hello.quickbeeagency,com`, and ensure all UI locations that use `siteConfig.contact.email` (including mailto links and any displayed email text) reflect this new value.",
       "reqIds": [
-        "REQ-1"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-add-the-provided-phone-number-91-9182768591-as-a-visible-click-to-call-contact-option-across-the-site-where-contact-methods-are-listed-at-minimum-footer-and-contact-page-and-ensure-whatsapp-ctas-use-the-updated-whatsapp-link-from-site-configuration",
-      "title": "Add the provided phone number (+91 9182768591) as a visible click-to-call contact option across the site where contact methods are listed (at minimum: Footer and Contact page), and ensure WhatsApp CTAs use the updated WhatsApp link from site configuration.",
-      "reqIds": [
-        "REQ-2"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-include-the-service-named-complete-business-automation-system-in-the-services-page-services-list-with-the-same-structure-as-other-services-title-whatitis-whyitmatters-businessimpact-and-conversion-focused-english-copy",
-      "title": "Include the service named \"Complete Business Automation System\" in the Services page services list with the same structure as other services (title, whatItIs, whyItMatters, businessImpact) and conversion-focused English copy.",
-      "reqIds": [
-        "REQ-3"
-      ],
-      "version": 1
-    },
-    {
-      "id": "feature-ensure-the-website-is-fully-functional-end-to-end-all-navigation-links-and-primary-ctas-route-correctly-the-contact-form-submits-successfully-to-the-backend-for-unauthenticated-visitors-and-the-ui-provides-clear-success-error-feedback-without-requiring-internet-identity-login",
-      "title": "Ensure the website is fully functional end-to-end: all navigation links and primary CTAs route correctly, the contact form submits successfully to the backend for unauthenticated visitors, and the UI provides clear success/error feedback without requiring Internet Identity login.",
-      "reqIds": [
-        "REQ-4"
+        "REQ-5"
       ],
       "version": 1
     }
@@ -42,25 +20,12 @@
   "new_feature_requests": [
     {
       "id": "AR-1",
-      "summary": "Add contact/WhatsApp phone number (+91 9182768591) to the site (click-to-call and WhatsApp link).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-2",
-      "summary": "Ensure the site is completely functional end-to-end (all sections/links/forms/WhatsApp contact work as intended).",
-      "reqIds": [],
-      "status": "pending"
-    },
-    {
-      "id": "AR-3",
-      "summary": "Include \"Complete Business Automation System\" in the services list.",
+      "summary": "Update contact email from hello@leadflow to hello.quickbeeagency,com",
       "reqIds": [],
       "status": "pending"
     }
   ],
-  "gameProjectType": "none",
-  "projectName": "Make site fully functional, add contact/WhatsApp number, and include new service",
+  "projectName": "Update site contact email address",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

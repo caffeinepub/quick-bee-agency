@@ -1,89 +1,34 @@
 {
   "kind": "build_request",
-  "title": "Make site fully functional, add contact/WhatsApp number, and include new service",
+  "title": "Update site contact email address",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Update the centralized site configuration to use the provided contact/WhatsApp number (+91 9182768591), including: (1) WhatsApp display number, (2) WhatsApp wa.me link using 919182768591, and (3) a click-to-call tel: link targetable by UI components.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-9"
-        ],
-        "quotes": [
-          "make it completely functional & add this number for contact & whatsapp number(+91 9182768591)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "frontend/src/config/site.ts contains the WhatsApp number as \"+91 9182768591\" (or equivalent formatting) and the WhatsApp link uses https://wa.me/919182768591 with a prefilled message query string",
-        "A phone contact value exists in site configuration that can be used to render a tel: link (e.g., tel:+919182768591)"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Add the provided phone number (+91 9182768591) as a visible click-to-call contact option across the site where contact methods are listed (at minimum: Footer and Contact page), and ensure WhatsApp CTAs use the updated WhatsApp link from site configuration.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-9"
-        ],
-        "quotes": [
-          "add this number for contact & whatsapp number(+91 9182768591)"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Footer shows a phone entry that links to tel:+919182768591 and is keyboard accessible",
-        "Contact page 'Other Ways to Reach Us' includes the phone number as a tel: link in addition to email and WhatsApp",
-        "WhatsApp button and any WhatsApp links on the site open the updated wa.me link in a new tab"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Include the service named \"Complete Business Automation System\" in the Services page services list with the same structure as other services (title, whatItIs, whyItMatters, businessImpact) and conversion-focused English copy.",
+      "id": "REQ-5",
+      "text": "Update the site contact email address from the current value in `frontend/src/config/site.ts` (`siteConfig.contact.email`) to exactly `hello.quickbeeagency,com`, and ensure all UI locations that use `siteConfig.contact.email` (including mailto links and any displayed email text) reflect this new value.",
       "target": "frontend",
       "source": {
         "messageIds": [
           "msg-4"
         ],
         "quotes": [
-          "Complete Business Automation System- include this service"
+          "yes, change hello@leadflow to hello.quickbeeagency,com"
         ]
       },
       "acceptanceCriteria": [
-        "Services page renders an additional ServiceCard titled \"Complete Business Automation System\"",
-        "The new service includes non-empty 'what it is', 'why it matters', and 'business impact' text consistent with the existing tone and format"
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Ensure the website is fully functional end-to-end: all navigation links and primary CTAs route correctly, the contact form submits successfully to the backend for unauthenticated visitors, and the UI provides clear success/error feedback without requiring Internet Identity login.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-9"
-        ],
-        "quotes": [
-          "make it completely functional"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Header navigation links route correctly to Home, Services, About, Pricing, and Contact on both desktop and mobile menus",
-        "All primary CTA buttons that point to internal pages (e.g., \"/contact\", \"/pricing\") navigate without errors",
-        "Contact form submission works for logged-out/guest users and displays the existing success state on success and error state on failure",
-        "Backend stores submitted contact form entries via submitContactForm without authorization requirements (no regression to backend/main.mo public contact form behavior)"
+        "`frontend/src/config/site.ts` sets `siteConfig.contact.email` to exactly `hello.quickbeeagency,com`.",
+        "The mailto link in the footer uses `mailto:hello.quickbeeagency,com`.",
+        "The email shown on the Contact page uses `hello.quickbeeagency,com` and its mailto link uses `mailto:hello.quickbeeagency,com`."
       ]
     }
   ],
   "constraints": [
-    "Do not edit files under frontend/src/components/ui (read-only UI components).",
-    "Do not edit immutable hook files: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx.",
-    "Backend must remain a single Motoko actor in backend/main.mo; add backend/migration.mo only if an upgrade requires state migration."
+    "Do not change backend logic or persistence for this request.",
+    "Do not auto-correct or reformat the user-provided email string; use it exactly as provided (`hello.quickbeeagency,com`)."
   ],
   "nonGoals": [
-    "Do not implement actual WhatsApp Business automation, auto-reply, or smart routing features; only update contact/linking on the website.",
-    "Do not add third-party authentication providers; only Internet Identity is allowed.",
-    "Do not add external databases or external backend services."
+    "Adding new contact methods (e.g., additional phone numbers, addresses).",
+    "Changing any non-email copy, layout, or styling beyond what is necessary to reflect the updated email address."
   ],
   "imageRequirements": {
     "required": [],
