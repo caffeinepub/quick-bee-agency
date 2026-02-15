@@ -1,27 +1,49 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Improve WhatsApp prefilled message from Contact form",
+  "title": "Auto-open WhatsApp chat after contact submit + surface automated notification failures",
   "requirements": [
     {
-      "id": "REQ-4",
-      "summary": "Include all submitted contact form fields in the post-submit WhatsApp deep-link message, always using the configured contact-form WhatsApp number.",
+      "id": "REQ-1",
+      "summary": "After successful contact form submission, attempt to open the WhatsApp deep link in a new tab/window using the existing formatted message and configured contact-form number, while keeping the existing WhatsApp button as a fallback.",
       "acceptanceCriteria": [
-        "After submitting the Contact form successfully, clicking \"Continue on WhatsApp\" opens a wa.me link that uses siteConfig.whatsapp.contactFormNumber (not the general site WhatsApp number).",
-        "The prefilled WhatsApp message includes labeled lines for Name, Email, Phone, and Message.",
-        "If the user did not enter a phone number, the message still includes a Phone line with a clear placeholder (e.g., \"Phone: Not provided\").",
-        "The WhatsApp message formatting uses line breaks so each field is easy to scan in WhatsApp."
+        "Submitting the contact form successfully triggers an attempt to open the WhatsApp deep link in a new tab/window.",
+        "If the browser blocks the popup/new tab, the UI still shows a visible WhatsApp button/link the user can click to open WhatsApp manually.",
+        "The prefilled text in the opened WhatsApp chat matches the formatted message produced by the existing helper (includes Name, Email, Phone, Message).",
+        "The WhatsApp target number used is `siteConfig.whatsapp.contactFormNumber` (no hardcoded numbers)."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/utils/whatsappLink.ts",
+          "path": "frontend/src/pages/ContactPage.tsx",
           "operation": "modify",
-          "description": "Add a small helper (e.g., a formatter) to build a copy/paste-friendly, line-break-separated WhatsApp message for contact-form submissions (Name/Email/Phone/Message), ensuring the Phone line is always present with a clear placeholder when empty. Verify the component's usage instructions before implementing."
+          "description": "Update the submit handler to (1) compute the WhatsApp deep link using existing helpers (`formatContactFormMessage(...)`, `generateWhatsAppLink(...)`) and `siteConfig.whatsapp.contactFormNumber`, and (2) after a successful backend submission, immediately call `window.open(link, '_blank', 'noopener,noreferrer')`. Track whether the new window was blocked (e.g., `window.open` returns null) and keep rendering the existing post-success WhatsApp fallback (using the existing WhatsApp link/button UI) when blocked or when auto-open fails. Use English for any new user-facing text. Use the existing `WhatsappButton` component for the fallback; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/hooks/useContactForm.ts",
+          "operation": "modify",
+          "description": "Adjust the mutation usage pattern so ContactPage can reliably detect success/failure via `await` + try/catch (instead of checking potentially stale `isError` immediately after awaiting). Ensure the hook continues to expose `submitForm` as an async function that throws on failure so the ContactPage flow can confidently trigger WhatsApp opening only after success."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Surface automated WhatsApp notification delivery results to the user when the backend indicates the provider call failed, without hardcoding provider configuration in the UI.",
+      "acceptanceCriteria": [
+        "On each successful contact form submission, the backend initiates an outbound HTTPS request to a configurable provider endpoint to send a WhatsApp message containing all submitted contact details.",
+        "If the provider call fails, the contact submission is still stored in the canister (no data loss), and the frontend shows an English error/notice indicating the WhatsApp notification could not be sent automatically.",
+        "Provider configuration (at minimum: API base URL/endpoint, auth token/key, and destination WhatsApp/owner number) is not hardcoded in the UI; it is configurable (admin-controlled or deploy-time configuration).",
+        "Automated sending uses the same message content structure currently used for the WhatsApp deep link (Name/Email/Phone/Message in a clear format)."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/hooks/useContactForm.ts",
+          "operation": "modify",
+          "description": "Extend the hook to capture and expose a non-blocking post-submit \"notification warning\" state when the backend reports that automated WhatsApp notification delivery failed (while still treating the submission itself as successful). This should not introduce any provider configuration in the UI; it only reacts to backend-provided status (e.g., a return payload or a structured error/warning contract)."
         },
         {
           "path": "frontend/src/pages/ContactPage.tsx",
           "operation": "modify",
-          "description": "Update the post-success \"Continue on WhatsApp\" link generation to use siteConfig.whatsapp.contactFormNumber and the new/updated formatter so the prefilled text always includes labeled lines for Name, Email, Phone (or \"Not provided\"), and Message with readable line breaks. Verify the component's usage instructions before implementing."
+          "description": "When the contact submission succeeds but the hook exposes a notification-failed warning (from backend status), show a clear English notice such as \"We received your message, but we could not send an automatic WhatsApp notification. Please use the WhatsApp button below.\" Keep the manual WhatsApp button visible as the fallback (using the existing `WhatsappButton` component); verify the component's usage instructions before implementing."
         }
       ]
     }

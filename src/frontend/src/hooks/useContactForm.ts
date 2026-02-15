@@ -18,9 +18,10 @@ export function useContactForm() {
         throw new Error('Connection not ready. Please wait a moment and try again.');
       }
       await actor.submitContactForm(data.name, data.email, data.phone, data.message);
+      return data; // Return the data for use in onSuccess
     },
     onSuccess: () => {
-      // Optionally invalidate any queries that depend on contact submissions
+      // Invalidate any queries that depend on contact submissions
       queryClient.invalidateQueries({ queryKey: ['contactSubmissions'] });
     },
   });

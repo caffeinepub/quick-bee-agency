@@ -24,6 +24,8 @@ export default function ContactPage() {
     message: string;
   } | null>(null);
 
+  const [autoOpenBlocked, setAutoOpenBlocked] = useState(false);
+
   const { submitForm, isLoading, isSuccess, isError, error, isActorReady } = useContactForm();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -35,19 +37,37 @@ export default function ContactPage() {
       return;
     }
 
-    // Clear phone error
+    // Clear phone error and auto-open blocked state
     setPhoneError('');
+    setAutoOpenBlocked(false);
     
     // Capture the form data before submission
     const dataToSubmit = { ...formData };
     
-    await submitForm(dataToSubmit);
-    
-    if (!isError) {
+    try {
+      await submitForm(dataToSubmit);
+      
       // Store submitted data for WhatsApp link generation
       setSubmittedData(dataToSubmit);
+      
+      // Auto-open WhatsApp in new tab after successful submission
+      const whatsappLink = generateWhatsAppLink(
+        siteConfig.whatsapp.contactFormNumber,
+        formatContactFormMessage(dataToSubmit)
+      );
+      
+      const newWindow = window.open(whatsappLink, '_blank', 'noopener,noreferrer');
+      
+      // Check if popup was blocked
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        setAutoOpenBlocked(true);
+      }
+      
       // Clear form
       setFormData({ name: '', email: '', phone: '', message: '' });
+    } catch (err) {
+      // Error is handled by the mutation hook
+      console.error('Form submission error:', err);
     }
   };
 
@@ -175,17 +195,32 @@ export default function ContactPage() {
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 p-4 text-accent">
                       <CheckCircle2 className="h-5 w-5 flex-shrink-0" />
-                      <p className="text-sm">Thank you! We'll get back to you within 2 hours.</p>
+                      <p className="text-sm">Thank you! We've received your message and will get back to you within 2 hours.</p>
                     </div>
                     
-                    {whatsappLinkWithDetails && (
+                    {autoOpenBlocked && whatsappLinkWithDetails && (
+                      <div className="rounded-lg border border-amber-500/40 bg-amber-500/10 p-4">
+                        <div className="mb-3 flex items-start gap-2">
+                          <AlertCircle className="mt-0.5 h-5 w-5 flex-shrink-0 text-amber-600 dark:text-amber-400" />
+                          <p className="text-sm text-amber-900 dark:text-amber-100">
+                            Your browser blocked the automatic WhatsApp window. Click the button below to open WhatsApp with your details:
+                          </p>
+                        </div>
+                        <WhatsappButton 
+                          link={whatsappLinkWithDetails}
+                          label="Open WhatsApp"
+                        />
+                      </div>
+                    )}
+
+                    {!autoOpenBlocked && whatsappLinkWithDetails && (
                       <div className="rounded-lg border border-border/40 bg-card p-4">
                         <p className="mb-3 text-sm text-muted-foreground">
-                          Want to discuss this right away? Reach us on WhatsApp with your details already filled in:
+                          WhatsApp should have opened automatically. If not, click below to continue the conversation:
                         </p>
                         <WhatsappButton 
                           link={whatsappLinkWithDetails}
-                          label="Continue on WhatsApp"
+                          label="Open WhatsApp"
                         />
                       </div>
                     )}

@@ -14,14 +14,39 @@ export const UserRole = IDL.Variant({
   'guest' : IDL.Null,
 });
 export const Time = IDL.Int;
+export const WhatsAppNotificationStatus = IDL.Record({
+  'attemptResult' : IDL.Opt(
+    IDL.Variant({ 'failure' : IDL.Text, 'success' : IDL.Null })
+  ),
+  'attemptTime' : IDL.Opt(Time),
+});
 export const ContactSubmission = IDL.Record({
   'name' : IDL.Text,
   'email' : IDL.Text,
   'message' : IDL.Text,
   'timestamp' : Time,
   'phone' : IDL.Text,
+  'whatsAppNotificationStatus' : WhatsAppNotificationStatus,
 });
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const http_header = IDL.Record({
+  'value' : IDL.Text,
+  'name' : IDL.Text,
+});
+export const http_request_result = IDL.Record({
+  'status' : IDL.Nat,
+  'body' : IDL.Vec(IDL.Nat8),
+  'headers' : IDL.Vec(http_header),
+});
+export const TransformationInput = IDL.Record({
+  'context' : IDL.Vec(IDL.Nat8),
+  'response' : http_request_result,
+});
+export const TransformationOutput = IDL.Record({
+  'status' : IDL.Nat,
+  'body' : IDL.Vec(IDL.Nat8),
+  'headers' : IDL.Vec(http_header),
+});
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -45,6 +70,11 @@ export const idlService = IDL.Service({
       [],
       [],
     ),
+  'transform' : IDL.Func(
+      [TransformationInput],
+      [TransformationOutput],
+      ['query'],
+    ),
 });
 
 export const idlInitArgs = [];
@@ -56,14 +86,36 @@ export const idlFactory = ({ IDL }) => {
     'guest' : IDL.Null,
   });
   const Time = IDL.Int;
+  const WhatsAppNotificationStatus = IDL.Record({
+    'attemptResult' : IDL.Opt(
+      IDL.Variant({ 'failure' : IDL.Text, 'success' : IDL.Null })
+    ),
+    'attemptTime' : IDL.Opt(Time),
+  });
   const ContactSubmission = IDL.Record({
     'name' : IDL.Text,
     'email' : IDL.Text,
     'message' : IDL.Text,
     'timestamp' : Time,
     'phone' : IDL.Text,
+    'whatsAppNotificationStatus' : WhatsAppNotificationStatus,
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const http_header = IDL.Record({ 'value' : IDL.Text, 'name' : IDL.Text });
+  const http_request_result = IDL.Record({
+    'status' : IDL.Nat,
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(http_header),
+  });
+  const TransformationInput = IDL.Record({
+    'context' : IDL.Vec(IDL.Nat8),
+    'response' : http_request_result,
+  });
+  const TransformationOutput = IDL.Record({
+    'status' : IDL.Nat,
+    'body' : IDL.Vec(IDL.Nat8),
+    'headers' : IDL.Vec(http_header),
+  });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -86,6 +138,11 @@ export const idlFactory = ({ IDL }) => {
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
         [],
         [],
+      ),
+    'transform' : IDL.Func(
+        [TransformationInput],
+        [TransformationOutput],
+        ['query'],
       ),
   });
 };
