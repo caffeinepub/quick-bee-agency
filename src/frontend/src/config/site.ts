@@ -6,8 +6,8 @@ export const siteConfig = {
     // General site WhatsApp for chat/inquiries
     number: '+91 9182768591',
     link: 'https://wa.me/919182768591?text=Hi%2C%20I%27m%20interested%20in%20learning%20more%20about%20your%20lead%20generation%20services',
-    // Dedicated WhatsApp for contact form submissions
-    contactFormNumber: '+91 9181768591',
+    // Dedicated WhatsApp for contact form submissions - CORRECTED NUMBER
+    contactFormNumber: '+91 9182768591',
   },
   contact: {
     email: 'hello.quickbeeagency,com',

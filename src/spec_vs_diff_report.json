@@ -1,52 +1,37 @@
 {
   "kind": "spec_vs_diff_report",
   "version": "1.0",
-  "generatedAt": "2026-02-15T20:07:32.484Z",
-  "summary": "REQ-1 (auto-open WhatsApp after successful submit with fallback) appears implemented on the Contact page using the existing WhatsApp link helpers and `siteConfig.whatsapp.contactFormNumber`. REQ-2 is only partially implemented: backend makes an outbound HTTP GET to a hardcoded URL and does not show evidence of configurable provider settings, auth, destination number, or using the same full formatted message structure. REQ-3 is partially implemented: per-submission notification status metadata is added and a migration is provided, but the diff does not show admin-only exposure behavior in `getAllContactSubmissions` (or equivalent retrieval).",
+  "generatedAt": "2026-02-16T13:00:14.440Z",
+  "summary": "ContactPage.tsx was updated to open a blank window synchronously on submit (before async backend submission) and then navigate it to the generated WhatsApp deep link after a successful submit—aligning with REQ-1’s popup-blocking mitigation. However, due to truncation of ContactPage.tsx, the updated UX messaging and the exact conditional display rules for the popup-blocked warning (REQ-2) cannot be confirmed from the provided diff summary. Two non-product/meta files (frontend-file-summaries.txt and project_state.json) were also modified despite not being requested in the BuildRequest.",
   "missing_requirements": [
     {
       "id": "REQ-2",
-      "requirement": "Backend must call a configurable external WhatsApp messaging provider via HTTPS on each contact submission, using configurable endpoint/base URL, auth token/key, and destination owner number (not hardcoded in UI), and send the same formatted message content structure (Name/Email/Phone/Message).",
-      "reason": "The backend `sendWhatsAppMessage` uses a hardcoded URL (`https://your-whatsapp-api-endpoint.com/...`) and only passes `name` and `message` as query parameters. No evidence of provider configuration (endpoint/token/destination number) or sending the full formatted message structure.",
+      "requirement": "Adjust the blocked-popup UX messaging on the Contact page to clearly instruct the user what to do next in English, and only show the \"browser blocked\" warning when a popup block is actually detected (not for other errors).",
+      "reason": "The diff excerpt shows popupBlocked state handling in the submit handler, but the actual UI rendering and messaging logic is not visible due to truncation, so it cannot be verified that the warning is shown only when popup-blocking is detected, that backend submission failures do not show the popup-blocked warning, and that the final user-facing messaging is updated in English.",
       "evidence": [
-        "backend/main.mo"
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "requirement": "If the provider call fails, submission is still stored and the frontend shows an English error/notice indicating WhatsApp notification could not be sent automatically.",
-      "reason": "While the submission is stored before attempting the provider call, the backend API shown (`submitContactForm` returns `async ()`) provides no failure information to the frontend, and the frontend code shown always treats submission success as success and proceeds to auto-open WhatsApp; no UI notice for provider failure is evidenced.",
-      "evidence": [
-        "backend/main.mo",
-        "frontend/src/hooks/useContactForm.ts",
-        "frontend/src/pages/ContactPage.tsx"
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "requirement": "Expose WhatsApp notification status metadata only to admins when retrieving submissions (non-admin callers cannot access it), and ensure admin retrieval returns submissions sorted as before including the new status fields (or a correlatable parallel structure).",
-      "reason": "The diff shows the status metadata is added to stored submissions, but does not show any retrieval method changes (e.g., `getAllContactSubmissions`) implementing admin-only access to the metadata or returning it for admins.",
-      "evidence": [
-        "backend/main.mo (truncated)",
-        "backend/migration.mo"
+        "frontend/src/pages/ContactPage.tsx (truncated)"
       ]
     }
   ],
   "hallucinated_features": [
     {
-      "description": "User profile storage and related authorization-guarded profile endpoints (`getCallerUserProfile`, `getUserProfile`, `saveCallerUserProfile`).",
-      "reason": "Not requested by REQ-1/REQ-2/REQ-3; appears unrelated to the contact/WhatsApp automation scope.",
+      "description": "Modified project metadata/state tracking file (project_state.json) to add feature request entries/notes.",
+      "reason": "BuildRequest only asks for frontend behavior/UX changes on the Contact page and includes no requirement to update project state metadata files.",
       "evidence": [
-        "backend/main.mo"
+        "project_state.json"
+      ]
+    },
+    {
+      "description": "Modified frontend-file-summaries.txt (documentation/summary content).",
+      "reason": "BuildRequest does not request updating repository summary/documentation files; it focuses on implementing the Contact page submission flow and UX messaging behavior.",
+      "evidence": [
+        "frontend-file-summaries.txt"
       ]
     }
   ],
-  "confidence": 0.74,
+  "confidence": 0.62,
   "changed_files": [
-    "backend/main.mo",
-    "backend/migration.mo",
     "frontend-file-summaries.txt",
-    "frontend/src/hooks/useContactForm.ts",
     "frontend/src/pages/ContactPage.tsx",
     "project_state.json"
   ]

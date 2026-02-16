@@ -1,49 +1,38 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Auto-open WhatsApp chat after contact submit + surface automated notification failures",
+  "title": "Fix WhatsApp auto-open popup blocking on Contact form submission",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "After successful contact form submission, attempt to open the WhatsApp deep link in a new tab/window using the existing formatted message and configured contact-form number, while keeping the existing WhatsApp button as a fallback.",
+      "summary": "Open a single WhatsApp tab/window directly from the submit click, then navigate it to the generated wa.me link only after submission succeeds, with a blocked-popup fallback.",
       "acceptanceCriteria": [
-        "Submitting the contact form successfully triggers an attempt to open the WhatsApp deep link in a new tab/window.",
-        "If the browser blocks the popup/new tab, the UI still shows a visible WhatsApp button/link the user can click to open WhatsApp manually.",
-        "The prefilled text in the opened WhatsApp chat matches the formatted message produced by the existing helper (includes Name, Email, Phone, Message).",
-        "The WhatsApp target number used is `siteConfig.whatsapp.contactFormNumber` (no hardcoded numbers)."
+        "When the user clicks the form submit button, the app attempts to create a new tab/window immediately from that click event (prior to awaiting the submitContactForm call).",
+        "After the submitContactForm call succeeds, the already-opened tab/window is navigated to the WhatsApp deep link created from the submitted form data.",
+        "If the browser still blocks window creation, the UI falls back to showing the manual WhatsApp button with the prefilled details link.",
+        "No additional WhatsApp window/tab is opened beyond the single intended one per submission."
       ],
       "file_operations": [
         {
           "path": "frontend/src/pages/ContactPage.tsx",
           "operation": "modify",
-          "description": "Update the submit handler to (1) compute the WhatsApp deep link using existing helpers (`formatContactFormMessage(...)`, `generateWhatsAppLink(...)`) and `siteConfig.whatsapp.contactFormNumber`, and (2) after a successful backend submission, immediately call `window.open(link, '_blank', 'noopener,noreferrer')`. Track whether the new window was blocked (e.g., `window.open` returns null) and keep rendering the existing post-success WhatsApp fallback (using the existing WhatsApp link/button UI) when blocked or when auto-open fails. Use English for any new user-facing text. Use the existing `WhatsappButton` component for the fallback; verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useContactForm.ts",
-          "operation": "modify",
-          "description": "Adjust the mutation usage pattern so ContactPage can reliably detect success/failure via `await` + try/catch (instead of checking potentially stale `isError` immediately after awaiting). Ensure the hook continues to expose `submitForm` as an async function that throws on failure so the ContactPage flow can confidently trigger WhatsApp opening only after success."
+          "description": "Refactor the submit handler to synchronously attempt `window.open('about:blank', '_blank')` from the user click before any async work, keep a reference to that single window/tab, and after `submitForm` resolves successfully, navigate that pre-opened window to the existing WhatsApp deep link generated via `generateWhatsAppLink(...)` + `formatContactFormMessage(...)` (do not change the link format). If the pre-open attempt returns null/invalid or the user closes it before navigation, set state to enable the existing manual `WhatsappButton` fallback; if submission fails, close the pre-opened blank tab (when possible) to avoid leaving an empty tab and ensure no second tab is opened."
         }
       ]
     },
     {
       "id": "REQ-2",
-      "summary": "Surface automated WhatsApp notification delivery results to the user when the backend indicates the provider call failed, without hardcoding provider configuration in the UI.",
+      "summary": "Show popup-blocked messaging only when popup blocking is actually detected, and update the English copy to clearly instruct the user.",
       "acceptanceCriteria": [
-        "On each successful contact form submission, the backend initiates an outbound HTTPS request to a configurable provider endpoint to send a WhatsApp message containing all submitted contact details.",
-        "If the provider call fails, the contact submission is still stored in the canister (no data loss), and the frontend shows an English error/notice indicating the WhatsApp notification could not be sent automatically.",
-        "Provider configuration (at minimum: API base URL/endpoint, auth token/key, and destination WhatsApp/owner number) is not hardcoded in the UI; it is configurable (admin-controlled or deploy-time configuration).",
-        "Automated sending uses the same message content structure currently used for the WhatsApp deep link (Name/Email/Phone/Message in a clear format)."
+        "The \"Your browser blocked the automatic WhatsApp window...\" warning is displayed only when the app detects the window/tab could not be created (popup blocked).",
+        "If the backend submission fails, the existing error UI is shown and the popup-blocked message is not shown.",
+        "All user-facing text added/changed for this flow is in English."
       ],
       "file_operations": [
         {
-          "path": "frontend/src/hooks/useContactForm.ts",
-          "operation": "modify",
-          "description": "Extend the hook to capture and expose a non-blocking post-submit \"notification warning\" state when the backend reports that automated WhatsApp notification delivery failed (while still treating the submission itself as successful). This should not introduce any provider configuration in the UI; it only reacts to backend-provided status (e.g., a return payload or a structured error/warning contract)."
-        },
-        {
           "path": "frontend/src/pages/ContactPage.tsx",
           "operation": "modify",
-          "description": "When the contact submission succeeds but the hook exposes a notification-failed warning (from backend status), show a clear English notice such as \"We received your message, but we could not send an automatic WhatsApp notification. Please use the WhatsApp button below.\" Keep the manual WhatsApp button visible as the fallback (using the existing `WhatsappButton` component); verify the component's usage instructions before implementing."
+          "description": "Adjust Contact page state and rendering so the blocked-popup warning block is shown only when the initial synchronous window/tab creation failed (popup blocked) during the submit click. Ensure that on submission errors the error UI remains unchanged and the popup-blocked warning is not displayed (reset/clear the blocked flag on error). Update the warning text to clear English instructions (e.g., tell the user to click the button to open WhatsApp manually) and avoid showing the warning for non-popup-related failures."
         }
       ]
     }

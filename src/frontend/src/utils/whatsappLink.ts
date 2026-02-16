@@ -16,21 +16,36 @@ export function generateWhatsAppLink(phoneNumber: string, message: string): stri
 
 /**
  * Formats contact form data into a structured WhatsApp message
- * @param data - Contact form submission data
- * @returns Formatted message string with all fields labeled and separated by line breaks
+ * @param data - Contact form submission data with all required fields
+ * @returns Formatted message string matching the Quick Bee Agency template
  */
 export function formatContactFormMessage(data: {
-  name: string;
-  email: string;
+  fullName: string;
+  businessName: string;
   phone: string;
-  message: string;
+  email: string;
+  city: string;
+  selectedServices: string[];
+  budgetRange: string;
+  projectDetails: string;
 }): string {
-  return `Hi, I just submitted a contact form with the following details:
+  // Format selected services as a readable list
+  const servicesList = data.selectedServices.map(service => `• ${service}`).join('\n');
+  
+  return `New Inquiry – Quick Bee Agency
 
-Name: ${data.name}
+Name: ${data.fullName}
+Business: ${data.businessName}
+Phone: ${data.phone}
 Email: ${data.email}
-Phone: ${data.phone || 'Not provided'}
-Message: ${data.message}
+City: ${data.city}
 
-I'd like to discuss this further.`;
+Selected Services:
+${servicesList}
+
+Budget:
+${data.budgetRange}
+
+Project Details:
+${data.projectDetails}`;
 }

@@ -11,12 +11,16 @@ import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
 export interface ContactSubmission {
-  'name' : string,
+  'city' : string,
+  'businessName' : string,
+  'fullName' : string,
   'email' : string,
-  'message' : string,
   'timestamp' : Time,
+  'selectedServices' : Array<string>,
   'phone' : string,
+  'budgetRange' : string,
   'whatsAppNotificationStatus' : WhatsAppNotificationStatus,
+  'projectDetails' : string,
 }
 export type Time = bigint;
 export interface TransformationInput {
@@ -52,7 +56,7 @@ export interface _SERVICE {
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
   'submitContactForm' : ActorMethod<
-    [string, string, string, string],
+    [string, string, string, string, string, Array<string>, string, string],
     undefined
   >,
   'transform' : ActorMethod<[TransformationInput], TransformationOutput>,

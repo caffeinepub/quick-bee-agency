@@ -6,13 +6,14 @@ import Runtime "mo:core/Runtime";
 import Principal "mo:core/Principal";
 import Int "mo:core/Int";
 import Nat "mo:core/Nat";
+import List "mo:core/List";
+
 
 import MixinAuthorization "authorization/MixinAuthorization";
 import AccessControl "authorization/access-control";
 import OutCall "http-outcalls/outcall";
-import Migration "migration";
 
-(with migration = Migration.run)
+
 actor {
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
@@ -53,10 +54,14 @@ actor {
   };
 
   type ContactSubmission = {
-    name : Text;
-    email : Text;
+    fullName : Text;
+    businessName : Text;
     phone : Text;
-    message : Text;
+    email : Text;
+    city : Text;
+    selectedServices : [Text];
+    budgetRange : Text;
+    projectDetails : Text;
     timestamp : Time.Time;
     whatsAppNotificationStatus : WhatsAppNotificationStatus;
   };
@@ -91,15 +96,28 @@ actor {
     };
   };
 
-  public shared ({ caller }) func submitContactForm(name : Text, email : Text, phone : Text, message : Text) : async () {
+  public shared ({ caller }) func submitContactForm(
+    fullName : Text,
+    businessName : Text,
+    phone : Text,
+    email : Text,
+    city : Text,
+    selectedServices : [Text],
+    budgetRange : Text,
+    projectDetails : Text
+  ) : async () {
     // No authorization check - public contact form accessible to everyone including guests
     let id = generateId();
     let timestamp = Time.now();
     let submission : ContactSubmission = {
-      name;
-      email;
+      fullName;
+      businessName;
       phone;
-      message;
+      email;
+      city;
+      selectedServices;
+      budgetRange;
+      projectDetails;
       timestamp;
       whatsAppNotificationStatus = {
         attemptTime = null;
@@ -108,13 +126,17 @@ actor {
     };
     contactSubmissionsMap.add(id, submission);
 
-    switch (await sendWhatsAppMessage(name, message)) {
+    switch (await sendWhatsAppMessage(fullName, projectDetails)) {
       case (#success) {
         let updatedSubmission = {
-          name = submission.name;
-          email = submission.email;
+          fullName = submission.fullName;
+          businessName = submission.businessName;
           phone = submission.phone;
-          message = submission.message;
+          email = submission.email;
+          city = submission.city;
+          selectedServices = submission.selectedServices;
+          budgetRange = submission.budgetRange;
+          projectDetails = submission.projectDetails;
           timestamp = submission.timestamp;
           whatsAppNotificationStatus = {
             attemptTime = ?timestamp;
@@ -125,10 +147,14 @@ actor {
       };
       case (#failure(error)) {
         let updatedSubmission = {
-          name = submission.name;
-          email = submission.email;
+          fullName = submission.fullName;
+          businessName = submission.businessName;
           phone = submission.phone;
-          message = submission.message;
+          email = submission.email;
+          city = submission.city;
+          selectedServices = submission.selectedServices;
+          budgetRange = submission.budgetRange;
+          projectDetails = submission.projectDetails;
           timestamp = submission.timestamp;
           whatsAppNotificationStatus = {
             attemptTime = ?timestamp;
@@ -147,3 +173,4 @@ actor {
     contactSubmissionsMap.values().toArray().sort();
   };
 };
+

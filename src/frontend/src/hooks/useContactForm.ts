@@ -2,10 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
 
 interface ContactFormData {
-  name: string;
-  email: string;
+  fullName: string;
+  businessName: string;
   phone: string;
-  message: string;
+  email: string;
+  city: string;
+  selectedServices: string[];
+  budgetRange: string;
+  projectDetails: string;
 }
 
 export function useContactForm() {
@@ -17,7 +21,16 @@ export function useContactForm() {
       if (!actor) {
         throw new Error('Connection not ready. Please wait a moment and try again.');
       }
-      await actor.submitContactForm(data.name, data.email, data.phone, data.message);
+      await actor.submitContactForm(
+        data.fullName,
+        data.businessName,
+        data.phone,
+        data.email,
+        data.city,
+        data.selectedServices,
+        data.budgetRange,
+        data.projectDetails
+      );
       return data; // Return the data for use in onSuccess
     },
     onSuccess: () => {

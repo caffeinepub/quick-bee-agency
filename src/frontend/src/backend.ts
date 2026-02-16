@@ -115,12 +115,16 @@ export interface TransformationInput {
     response: http_request_result;
 }
 export interface ContactSubmission {
-    name: string;
+    city: string;
+    businessName: string;
+    fullName: string;
     email: string;
-    message: string;
     timestamp: Time;
+    selectedServices: Array<string>;
     phone: string;
+    budgetRange: string;
     whatsAppNotificationStatus: WhatsAppNotificationStatus;
+    projectDetails: string;
 }
 export interface UserProfile {
     name: string;
@@ -143,7 +147,7 @@ export interface backendInterface {
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
-    submitContactForm(name: string, email: string, phone: string, message: string): Promise<void>;
+    submitContactForm(fullName: string, businessName: string, phone: string, email: string, city: string, selectedServices: Array<string>, budgetRange: string, projectDetails: string): Promise<void>;
     transform(input: TransformationInput): Promise<TransformationOutput>;
 }
 import type { ContactSubmission as _ContactSubmission, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole, WhatsAppNotificationStatus as _WhatsAppNotificationStatus } from "./declarations/backend.did.d.ts";
@@ -261,17 +265,17 @@ export class Backend implements backendInterface {
             return result;
         }
     }
-    async submitContactForm(arg0: string, arg1: string, arg2: string, arg3: string): Promise<void> {
+    async submitContactForm(arg0: string, arg1: string, arg2: string, arg3: string, arg4: string, arg5: Array<string>, arg6: string, arg7: string): Promise<void> {
         if (this.processError) {
             try {
-                const result = await this.actor.submitContactForm(arg0, arg1, arg2, arg3);
+                const result = await this.actor.submitContactForm(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.submitContactForm(arg0, arg1, arg2, arg3);
+            const result = await this.actor.submitContactForm(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
             return result;
         }
     }
@@ -319,27 +323,39 @@ function from_candid_opt_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Ar
     return value.length === 0 ? null : from_candid_variant_n9(_uploadFile, _downloadFile, value[0]);
 }
 function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    name: string;
+    city: string;
+    businessName: string;
+    fullName: string;
     email: string;
-    message: string;
     timestamp: _Time;
+    selectedServices: Array<string>;
     phone: string;
+    budgetRange: string;
     whatsAppNotificationStatus: _WhatsAppNotificationStatus;
+    projectDetails: string;
 }): {
-    name: string;
+    city: string;
+    businessName: string;
+    fullName: string;
     email: string;
-    message: string;
     timestamp: Time;
+    selectedServices: Array<string>;
     phone: string;
+    budgetRange: string;
     whatsAppNotificationStatus: WhatsAppNotificationStatus;
+    projectDetails: string;
 } {
     return {
-        name: value.name,
+        city: value.city,
+        businessName: value.businessName,
+        fullName: value.fullName,
         email: value.email,
-        message: value.message,
         timestamp: value.timestamp,
+        selectedServices: value.selectedServices,
         phone: value.phone,
-        whatsAppNotificationStatus: from_candid_WhatsAppNotificationStatus_n6(_uploadFile, _downloadFile, value.whatsAppNotificationStatus)
+        budgetRange: value.budgetRange,
+        whatsAppNotificationStatus: from_candid_WhatsAppNotificationStatus_n6(_uploadFile, _downloadFile, value.whatsAppNotificationStatus),
+        projectDetails: value.projectDetails
     };
 }
 function from_candid_record_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {

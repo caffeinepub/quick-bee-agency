@@ -21,12 +21,16 @@ export const WhatsAppNotificationStatus = IDL.Record({
   'attemptTime' : IDL.Opt(Time),
 });
 export const ContactSubmission = IDL.Record({
-  'name' : IDL.Text,
+  'city' : IDL.Text,
+  'businessName' : IDL.Text,
+  'fullName' : IDL.Text,
   'email' : IDL.Text,
-  'message' : IDL.Text,
   'timestamp' : Time,
+  'selectedServices' : IDL.Vec(IDL.Text),
   'phone' : IDL.Text,
+  'budgetRange' : IDL.Text,
   'whatsAppNotificationStatus' : WhatsAppNotificationStatus,
+  'projectDetails' : IDL.Text,
 });
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
 export const http_header = IDL.Record({
@@ -66,7 +70,16 @@ export const idlService = IDL.Service({
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
   'submitContactForm' : IDL.Func(
-      [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+      [
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Text,
+        IDL.Vec(IDL.Text),
+        IDL.Text,
+        IDL.Text,
+      ],
       [],
       [],
     ),
@@ -93,12 +106,16 @@ export const idlFactory = ({ IDL }) => {
     'attemptTime' : IDL.Opt(Time),
   });
   const ContactSubmission = IDL.Record({
-    'name' : IDL.Text,
+    'city' : IDL.Text,
+    'businessName' : IDL.Text,
+    'fullName' : IDL.Text,
     'email' : IDL.Text,
-    'message' : IDL.Text,
     'timestamp' : Time,
+    'selectedServices' : IDL.Vec(IDL.Text),
     'phone' : IDL.Text,
+    'budgetRange' : IDL.Text,
     'whatsAppNotificationStatus' : WhatsAppNotificationStatus,
+    'projectDetails' : IDL.Text,
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
   const http_header = IDL.Record({ 'value' : IDL.Text, 'name' : IDL.Text });
@@ -135,7 +152,16 @@ export const idlFactory = ({ IDL }) => {
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
     'submitContactForm' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Text, IDL.Text],
+        [
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Text,
+          IDL.Vec(IDL.Text),
+          IDL.Text,
+          IDL.Text,
+        ],
         [],
         [],
       ),

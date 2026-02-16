@@ -33,12 +33,16 @@ export interface TransformationInput {
     response: http_request_result;
 }
 export interface ContactSubmission {
-    name: string;
+    city: string;
+    businessName: string;
+    fullName: string;
     email: string;
-    message: string;
     timestamp: Time;
+    selectedServices: Array<string>;
     phone: string;
+    budgetRange: string;
     whatsAppNotificationStatus: WhatsAppNotificationStatus;
+    projectDetails: string;
 }
 export interface UserProfile {
     name: string;
@@ -60,6 +64,6 @@ export interface backendInterface {
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
-    submitContactForm(name: string, email: string, phone: string, message: string): Promise<void>;
+    submitContactForm(fullName: string, businessName: string, phone: string, email: string, city: string, selectedServices: Array<string>, budgetRange: string, projectDetails: string): Promise<void>;
     transform(input: TransformationInput): Promise<TransformationOutput>;
 }
